@@ -1,0 +1,1147 @@
+/* ==============================================================================
+   chuanban-highcontrast-green — Botanical Editorial Neo-Brutalism Theme for Obsidian
+   Author: chuanban (https://github.com/Anarcadia)
+   Version: 1.0.0
+   License: MIT
+   Description: 暖调纸媒新粗野主义 (Warm Editorial Neo-Brutalism) 独立本地主题。
+                复刻「直角高对比 1px 外露黑框网格 + 三阶灰调印刷纸张底色 + 黑粗体排版 +
+                工具区极客等宽字体 + 温和耐看的浓绿/淡绿强调色与粗犷亮色硬边阴影」。
+   ============================================================================== */
+
+/* @settings
+name: chuanban-highcontrast-green
+id: chuanban-highcontrast-green
+settings:
+    - id: mp-tab-style
+      title: 顶部激活标签页风格 (Active Tab Style)
+      description: 切换顶部激活 Tab 是「竹青浓绿底+炭黑粗体字（复刻原图撞色感）」还是「深松墨绿底+象牙白字」
+      type: class-select
+      allowEmpty: false
+      default: mp-tab-sage-bold
+      options:
+          - label: "竹青浓绿底 + 炭黑粗体字 (默认 · 复刻原图粗野主义撞色块)"
+            value: mp-tab-sage-bold
+          - label: "深松墨绿底 + 象牙米白字 (沉稳古典图书馆风格)"
+            value: mp-tab-forest-dark
+    - id: mp-typography-preset
+      title: 正文字体预设 (Body Typography Preset)
+      description: 默认采用复刻原图的「现代印刷黑粗体 (Gothic Medium)」，亦可切换打字机体或书卷宋体
+      type: class-select
+      allowEmpty: false
+      default: mp-font-gothic
+      options:
+          - label: "现代印刷黑粗体 (默认 · 思源黑体/苹方/Inter · 扎实油墨感)"
+            value: mp-font-gothic
+          - label: "更纱打字机体 (Sarasa Mono Slab SC · 复古活字机械感)"
+            value: mp-font-typewriter
+          - label: "经典书卷宋体 (西文无衬线 + 宋体-简 · 传统学术期刊感)"
+            value: mp-font-songti
+    - id: mp-hard-shadow-size
+      title: 粗犷亮色硬阴影偏移量 (Hard Shadow Offset)
+      description: 调整提问框、引用块、弹窗与悬浮按钮右下角淡绿硬阴影的粗犷程度 (默认 3px)
+      type: variable-text
+      default: 3px
+    - id: line-height-normal
+      title: 正文行高 (Body Line Height)
+      description: 调整正文标准阅读行高 (默认 1.72)
+      type: variable-number-slider
+      default: 1.72
+      min: 1.40
+      max: 2.20
+      step: 0.02
+*/
+
+/* ==============================================================================
+   1. 字体声明 (@font-face)
+   ============================================================================== */
+@font-face {
+  font-family: 'Sarasa Mono Slab SC';
+  src: local('Sarasa Mono Slab SC'), local('等距更纱黑体 Slab SC'), local('Sarasa-Mono-Slab-SC-Regular');
+  font-weight: 300 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Sarasa Mono Slab SC';
+  src: local('Sarasa Mono Slab SC Bold'), local('等距更纱黑体 Slab SC Bold'), local('Sarasa-Mono-Slab-SC-Bold');
+  font-weight: 600 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'MP Western Sans';
+  src: local('Inter'), local('SF Pro Text'), local('.AppleSystemUIFont'), local('Helvetica Neue'), local('Arial');
+  unicode-range: U+0000-024F, U+0250-02AF, U+1E00-1EFF, U+2000-206F, U+2070-209F, U+20A0-20CF, U+2100-214F;
+  font-weight: 300 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'MP Western Sans';
+  src: local('Inter Bold'), local('SF Pro Text Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
+  unicode-range: U+0000-024F, U+0250-02AF, U+1E00-1EFF, U+2000-206F, U+2070-209F, U+20A0-20CF, U+2100-214F;
+  font-weight: 600 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==============================================================================
+   2. 全局变量：直角网格、灰调印刷纸色、浓绿/淡绿体系与硬边亮色阴影
+   ============================================================================== */
+body {
+  /* 字体体系：黑粗体为主的现代印刷无衬线 + 极客等宽工具字体 */
+  --mp-font-gothic-stack: 'Inter', 'SF Pro Display', 'SF Pro Text', 'Source Han Sans SC', 'Noto Sans CJK SC', 'PingFang SC', 'Hiragino Sans GB', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mp-font-typewriter-stack: 'Sarasa Mono Slab SC', '等距更纱黑体 Slab SC', 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --mp-font-songti-stack: 'MP Western Sans', 'Songti SC', 'Songti TC', 'STSong', 'Source Serif 4', Georgia, serif;
+  --mp-font-mono-stack: 'JetBrains Mono', 'IBM Plex Mono', 'SFMono-Regular', 'Sarasa Mono SC', '等距更纱黑体 SC', Menlo, Monaco, Consolas, ui-monospace, monospace;
+
+  --font-interface-theme: var(--mp-font-gothic-stack);
+  --font-text-theme: var(--mp-font-gothic-stack);
+  --font-monospace-theme: var(--mp-font-mono-stack);
+
+  --font-text-size: 17px;
+  --font-interface: var(--font-interface-override, var(--font-interface-theme));
+  --font-text: var(--font-text-override, var(--font-text-theme));
+  --font-monospace: var(--font-monospace-override, var(--font-monospace-theme));
+
+  /* 全域零圆角 (0px Sharp Brutalist Grid) */
+  --radius-s: 0px !important;
+  --radius-m: 0px !important;
+  --radius-l: 0px !important;
+  --radius-xl: 0px !important;
+  --button-radius: 0px !important;
+  --input-radius: 0px !important;
+  --tab-curve: 0px !important;
+  --tab-radius: 0px !important;
+  --tab-radius-active: 0px !important;
+  --checkbox-radius: 0px !important;
+  --toggle-radius: 0px !important;
+  --slider-thumb-radius: 0px !important;
+  --callout-radius: 0px !important;
+  --embed-border-radius: 0px !important;
+
+  /* 排版节奏 */
+  --line-height-normal: 1.72;
+  --line-height-tight: 1.35;
+  --p-spacing: 0.92em;
+
+  /* 粗犷亮色硬边阴影参数 (零模糊、纯色硬偏移) */
+  --mp-hard-shadow-size: 3px;
+  --mp-hard-shadow-sm: 2px;
+
+  /* 彻底取消现代毛玻璃发散阴影，改用硬朗黑框+亮绿硬阴影 */
+  --shadow-s: 2px 2px 0px var(--mp-green-shadow) !important;
+  --shadow-l: 4px 4px 0px var(--mp-green-shadow) !important;
+
+  /* 悬浮预览卡原生尺寸锁定 */
+  --popover-width: 440px;
+  --popover-height: 360px;
+  --popover-font-size: 13px;
+}
+
+/* --- 浅色主题：三阶暖灰印刷纸 + 铅字炭黑网格 + 松石浓绿/鼠尾草淡绿 --- */
+.theme-light {
+  /* 1. 三阶灰调印刷纸张底色 (Warm Newsprint Grays) */
+  --background-primary: #ECEAE2;                  /* 中央主阅读区：道林印刷浅灰米纸 */
+  --background-primary-alt: #F4F2EC;              /* 提问框/浮动高亮卡：象牙浅纸卡 */
+  --background-secondary: #E2DFD5;                /* 左侧栏/Claudian/顶栏/底栏：旧报刊中暖灰 */
+  --background-secondary-alt: #D6D2C6;            /* 右侧大纲/次级深层底板：亚麻深暖灰 */
+  --background-modifier-hover: #D4E4D8;           /* 悬停：清透淡抹茶绿 */
+  --background-modifier-active-hover: #C2DBC8;
+
+  /* 2. 高对比铅字炭黑实线边框 (Exposed 1px Hairline Grid) */
+  --mp-ink-border: #181B18;                       /* 核心 1px 炭黑实线 */
+  --mp-ink-border-soft: rgba(24, 27, 24, 0.32);   /* 表格内部分割细线 */
+  --background-modifier-border: #181B18;
+  --background-modifier-border-hover: #181B18;
+  --background-modifier-border-focus: #26593F;
+  --divider-color: #181B18;
+  --divider-color-hover: #26593F;
+  --divider-width: 1px;
+  --divider-width-hover: 2px;
+  --border-width: 1px;
+
+  /* 3. 浓绿与淡绿双层强调色体系 (Forest & Sage Accents) */
+  --mp-green-deep: #26593F;                       /* 深松浓绿：双链底线、重点徽章、主强调色 */
+  --mp-green-deep-hover: #1B432E;                 /* 墨松暗绿 */
+  --mp-green-tab: #78AB88;                        /* 竹青中浓绿：顶部激活 Tab 纯色块填充 */
+  --mp-green-shadow: #A3C9AE;                     /* 淡竹叶亮绿：粗犷硬边偏移阴影 (3px 3px 0) */
+  --mp-green-soft: #C2DBC8;                       /* 鼠尾草淡绿：大纲当前章节高亮条、列表选中 */
+  --mp-green-tint: #DCEADF;                       /* 极浅薄荷纸底：引用块与代码块浅绿微底 */
+
+  /* 4. 笔墨文字层次 */
+  --text-normal: #141715;                         /* 铅字浓黑正文 */
+  --text-muted: #525752;                          /* 次要元信息与时间戳 */
+  --text-faint: #767B75;                          /* 占位符与弱化符号 */
+  --text-accent: #26593F;                         /* 深松浓绿 */
+  --text-accent-hover: #1B432E;
+  --text-on-accent: #F4F2EC;
+  --text-selection: rgba(120, 171, 136, 0.42);    /* 淡绿实感划词选中 */
+  --text-selection-match: rgba(120, 171, 136, 0.24);
+  --text-highlight-bg: #C5E0CC;                   /* ==高亮==：温和抹茶绿荧光笔 */
+
+  /* 5. 交互与按钮 */
+  --interactive-normal: #F4F2EC;
+  --interactive-hover: #DCEADF;
+  --interactive-accent: #26593F;
+  --interactive-accent-hover: #1B432E;
+  --interactive-accent-rgb: 38, 89, 63;
+
+  /* 6. 顶栏、状态栏与标签栏 */
+  --titlebar-background: #E2DFD5;
+  --titlebar-background-focused: #E2DFD5;
+  --titlebar-border-color: #181B18;
+  --status-bar-background: #E2DFD5;
+  --status-bar-border-color: #181B18;
+  --status-bar-text-color: #141715;
+  --tab-container-background: #E2DFD5;
+  --tab-background-active: var(--mp-green-tab);
+  --tab-text-color: #4A4E49;
+  --tab-text-color-active: #121412;
+  --tab-text-color-focused-active: #121412;
+  --tab-text-color-focused-active-current: #121412;
+  --tab-outline-color: #181B18;
+  --tab-divider-color: #181B18;
+
+  /* 7. 引用与代码块 */
+  --blockquote-border-thickness: 4px;
+  --blockquote-border-color: #26593F;
+  --blockquote-background-color: #E6ECE6;
+  --code-background: #E5E3DA;
+  --code-normal: #141715;
+  --code-comment: #666B65;
+  --code-string: #26593F;
+  --code-keyword: #1D4D4F;
+  --code-function: #3B6E52;
+
+  /* 8. 表格与 Bases 网格 */
+  --table-border-width: 1px;
+  --table-border-color: #181B18;
+  --table-header-background: #D6D2C6;
+  --table-header-font: var(--font-monospace);
+  --table-header-weight: 600;
+  --table-row-alt-background: rgba(24, 27, 24, 0.03);
+  --table-row-background-hover: #D4E4D8;
+
+  /* 9. Notebook Navigator 插件变量同步 */
+  --nn-theme-nav-bg: #E2DFD5;
+  --nn-theme-list-bg: #E2DFD5;
+  --nn-theme-foreground: #141715;
+  --nn-theme-foreground-muted: #525752;
+  --nn-theme-foreground-faint: #767B75;
+  --nn-theme-file-border-radius: 0px;
+  --nn-theme-file-name-color: #141715;
+  --nn-theme-file-name-font-weight: 600;
+  --nn-theme-file-preview-color: #525752;
+  --nn-theme-file-date-color: #666B65;
+  --nn-theme-file-selected-bg: #C2DBC8;
+  --nn-theme-file-selected-name-color: #121412;
+  --nn-theme-file-selected-border-color: #181B18;
+  --nn-theme-divider-border-color: #181B18;
+  --nn-theme-file-tag-bg: #DCEADF;
+  --nn-theme-file-tag-color: #1B432E;
+  --nn-theme-file-tag-border-color: #181B18;
+  --nn-theme-file-tag-border-radius: 0px;
+  --nn-theme-navitem-hover-bg: #D4E4D8;
+  --nn-theme-navitem-selected-bg: #C2DBC8;
+  --nn-theme-navitem-border-radius: 0px;
+}
+
+/* --- 深色主题：深林墨黑纸本 (Dark Moss Edition) --- */
+.theme-dark {
+  --background-primary: #181B19;
+  --background-primary-alt: #202522;
+  --background-secondary: #141715;
+  --background-secondary-alt: #101210;
+  --background-modifier-hover: #24332A;
+  --background-modifier-active-hover: #2D4235;
+
+  --mp-ink-border: #434D46;
+  --mp-ink-border-soft: rgba(255, 255, 255, 0.18);
+  --background-modifier-border: #434D46;
+  --background-modifier-border-hover: #689F7A;
+  --background-modifier-border-focus: #689F7A;
+  --divider-color: #434D46;
+
+  --mp-green-deep: #689F7A;
+  --mp-green-deep-hover: #82B893;
+  --mp-green-tab: #2E5A42;
+  --mp-green-shadow: #294D39;
+  --mp-green-soft: #264031;
+  --mp-green-tint: #1E2B23;
+
+  --text-normal: #E6E4DC;
+  --text-muted: #9BA19B;
+  --text-faint: #686E68;
+  --text-accent: #78AB88;
+  --text-accent-hover: #96C4A4;
+  --text-on-accent: #F4F2EC;
+  --text-selection: rgba(104, 159, 122, 0.35);
+  --text-selection-match: rgba(104, 159, 122, 0.20);
+  --text-highlight-bg: rgba(104, 159, 122, 0.35);
+
+  --interactive-normal: #202522;
+  --interactive-hover: #28362D;
+  --interactive-accent: #3A6B4C;
+  --interactive-accent-hover: #49825E;
+
+  --titlebar-background: #141715;
+  --titlebar-background-focused: #141715;
+  --titlebar-border-color: #434D46;
+  --status-bar-background: #141715;
+  --status-bar-border-color: #434D46;
+  --status-bar-text-color: #E6E4DC;
+  --tab-container-background: #141715;
+  --tab-background-active: #2E5A42;
+  --tab-text-color: #9BA19B;
+  --tab-text-color-active: #F4F2EC;
+  --tab-text-color-focused-active: #F4F2EC;
+  --tab-outline-color: #434D46;
+  --tab-divider-color: #434D46;
+
+  --code-background: #1E221F;
+  --code-normal: #E6E4DC;
+  --table-border-color: #434D46;
+  --table-header-background: #202522;
+}
+
+/* ==============================================================================
+   3. 外露 1px 瑞士网格框架与顶部标签栏 (Exposed Grid & Neo-Brutalist Tabs)
+   ============================================================================== */
+body {
+  font-family: var(--font-interface);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 顶部窗口栏与左侧 Ribbon 窄边栏：严格 1px 炭黑实线切分 */
+.titlebar {
+  background-color: var(--titlebar-background) !important;
+  border-bottom: 1px solid var(--mp-ink-border) !important;
+  height: 36px;
+}
+
+.workspace-ribbon.mod-left {
+  background-color: var(--background-secondary) !important;
+  border-right: 1px solid var(--mp-ink-border) !important;
+}
+
+.workspace-ribbon-collapse-btn,
+.sidebar-toggle-button {
+  border-radius: 0px !important;
+}
+
+/* 左上角侧栏展开/收起按钮：复刻原图带 1px 实线小方框造型 */
+.sidebar-toggle-button .clickable-icon {
+  border: 1px solid var(--mp-ink-border) !important;
+  border-radius: 0px !important;
+  background-color: var(--background-primary-alt) !important;
+  width: 24px !important;
+  height: 24px !important;
+  padding: 0 !important;
+  color: var(--text-normal) !important;
+}
+.sidebar-toggle-button .clickable-icon:hover {
+  background-color: var(--mp-green-soft) !important;
+  box-shadow: 2px 2px 0px var(--mp-green-deep) !important;
+}
+
+/* 分栏边界：全部使用清晰的 1px 炭黑贯穿线 */
+.workspace-split.mod-left-split,
+.workspace-sidedock.mod-left-split {
+  border-right: 1px solid var(--mp-ink-border) !important;
+}
+.workspace-split.mod-right-split,
+.workspace-sidedock.mod-right-split {
+  border-left: 1px solid var(--mp-ink-border) !important;
+}
+.workspace-leaf-resize-handle,
+.workspace-split-gutter {
+  background-color: var(--mp-ink-border) !important;
+  border-color: var(--mp-ink-border) !important;
+  width: 1px !important;
+  opacity: 1 !important;
+}
+.workspace-split.mod-vertical > * > .workspace-leaf-resize-handle,
+.workspace-split.mod-left-split .workspace-leaf-resize-handle,
+.workspace-split.mod-right-split .workspace-leaf-resize-handle {
+  border-bottom: 1px solid var(--mp-ink-border) !important;
+  border-right: 1px solid var(--mp-ink-border) !important;
+}
+
+/* --- 3.1 顶部标签栏：纯直角高对比色块 Tab (彻底移除 Chrome 圆弧脚) --- */
+.workspace-tab-header-container {
+  background-color: var(--tab-container-background) !important;
+  border-bottom: 1px solid var(--mp-ink-border) !important;
+  padding: 0 !important;
+  height: 36px !important;
+  min-height: 36px !important;
+  gap: 0 !important;
+}
+
+/* 彻底抹除 Obsidian 默认标签页两侧的圆弧伪元素 */
+.workspace-tab-header::before,
+.workspace-tab-header::after,
+.workspace-tab-header-inner::before,
+.workspace-tab-header-inner::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* 主工作区与左侧 Claudian 文本型 Tab 标签 */
+.mod-root .workspace-tab-header,
+.workspace-tab-header[data-type="claudian-view"],
+.workspace-tab-header[data-type*="claudian"] {
+  border-radius: 0px !important;
+  margin: 0 !important;
+  padding: 0 12px !important;
+  height: 36px !important;
+  border-right: 1px solid var(--mp-ink-border) !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-bottom: 1px solid var(--mp-ink-border) !important;
+  background-color: var(--background-secondary) !important;
+  color: var(--text-muted) !important;
+  font-family: var(--font-interface) !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  box-shadow: none !important;
+  transition: background-color 0.1s ease !important;
+}
+
+.mod-root .workspace-tab-header-inner {
+  padding: 0 !important;
+  border-radius: 0px !important;
+  background: transparent !important;
+  gap: 6px !important;
+}
+
+.mod-root .workspace-tab-header:hover {
+  background-color: var(--mp-green-soft) !important;
+  color: var(--text-normal) !important;
+}
+
+/* 激活态 Tab：复刻原图「纯色浓绿块 + 炭黑粗体字 + 1px 黑框」 */
+.mod-root .workspace-tab-header.is-active,
+.workspace-tab-header[data-type="claudian-view"].is-active,
+.workspace-tab-header[data-type*="claudian"].is-active {
+  background-color: var(--mp-green-tab) !important;
+  color: #121412 !important;
+  font-weight: 700 !important;
+  border-right: 1px solid var(--mp-ink-border) !important;
+  border-left: 1px solid var(--mp-ink-border) !important;
+  border-bottom: 1px solid var(--mp-ink-border) !important;
+  margin-bottom: 0 !important;
+  box-shadow: none !important;
+}
+
+.mod-root .workspace-tab-header.is-active .workspace-tab-header-inner-title,
+.mod-root .workspace-tab-header.is-active .workspace-tab-header-inner-icon,
+.mod-root .workspace-tab-header.is-active .workspace-tab-header-inner-close-button,
+.workspace-tab-header[data-type*="claudian"].is-active .workspace-tab-header-inner-title,
+.workspace-tab-header[data-type*="claudian"].is-active .workspace-tab-header-inner-icon {
+  color: #121412 !important;
+  font-weight: 700 !important;
+  opacity: 1 !important;
+}
+
+/* 可选预设：深松墨绿底 + 象牙米白字 */
+body.mp-tab-forest-dark .mod-root .workspace-tab-header.is-active,
+body.mp-tab-forest-dark .workspace-tab-header[data-type*="claudian"].is-active {
+  background-color: var(--mp-green-deep) !important;
+  color: #F4F2EC !important;
+}
+body.mp-tab-forest-dark .mod-root .workspace-tab-header.is-active .workspace-tab-header-inner-title,
+body.mp-tab-forest-dark .mod-root .workspace-tab-header.is-active .workspace-tab-header-inner-icon,
+body.mp-tab-forest-dark .mod-root .workspace-tab-header.is-active .workspace-tab-header-inner-close-button {
+  color: #F4F2EC !important;
+}
+
+/* --- 3.2 侧边栏图标切换栏 (复刻原图右上角「黑实线方框 + 硬阴影」图标按钮) --- */
+.workspace-sidedock .workspace-tab-header-container,
+.mod-left-split .workspace-tab-header-container,
+.mod-right-split .workspace-tab-header-container {
+  background-color: var(--background-secondary) !important;
+  border-bottom: 1px solid var(--mp-ink-border) !important;
+  height: 36px !important;
+  min-height: 36px !important;
+  padding: 0 8px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.workspace-sidedock .workspace-tab-header-tab-list,
+.mod-left-split .workspace-tab-header-tab-list,
+.mod-right-split .workspace-tab-header-tab-list {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+/* 侧栏纯图标 Tab 按钮 */
+.mod-left-split .workspace-tab-header:not([data-type*="claudian"]),
+.mod-right-split .workspace-tab-header {
+  width: 26px !important;
+  height: 26px !important;
+  min-width: 26px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 0px !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  color: var(--text-normal) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.mod-left-split .workspace-tab-header:not([data-type*="claudian"]):hover,
+.mod-right-split .workspace-tab-header:hover {
+  background-color: var(--mp-green-soft) !important;
+  border: 1px solid var(--mp-ink-border) !important;
+}
+
+/* 侧栏激活图标：复刻原图右上角 1.5px 炭黑正方形线框 + 淡绿硬阴影 */
+.mod-left-split .workspace-tab-header:not([data-type*="claudian"]).is-active,
+.mod-right-split .workspace-tab-header.is-active {
+  background-color: var(--background-primary-alt) !important;
+  color: #121412 !important;
+  border: 1.5px solid var(--mp-ink-border) !important;
+  border-radius: 0px !important;
+  box-shadow: 2px 2px 0px var(--mp-green-shadow) !important;
+}
+
+/* 如果左侧栏打开的是 Claudian，让激活的 Claudian Tab 呈现与主栏一致的浓绿长条块 */
+.mod-left-split .workspace-tab-header[data-type*="claudian"].is-active {
+  width: auto !important;
+  min-width: 110px !important;
+  height: 36px !important;
+  padding: 0 12px !important;
+  background-color: var(--mp-green-tab) !important;
+  border: 1px solid var(--mp-ink-border) !important;
+  box-shadow: none !important;
+}
+
+/* 面包屑与视图顶栏 (.view-header)：复刻原图细黑线分割条 */
+.view-header {
+  background-color: var(--background-primary) !important;
+  border-bottom: 1px solid var(--mp-ink-border) !important;
+  height: 34px !important;
+  padding: 0 12px !important;
+}
+.mod-left-split .view-header,
+.mod-right-split .view-header {
+  background-color: var(--background-secondary) !important;
+}
+.view-header-title-container,
+.view-header-breadcrumb,
+.view-header-title {
+  font-family: var(--font-interface) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  color: var(--text-muted) !important;
+}
+
+/* ==============================================================================
+   4. Claudian (AI 侧边栏) 1:1 像素级复刻
+   - 顶部提问框：1.5px 炭黑实线框 + 3px 淡绿粗犷硬边阴影
+   - Worked for 00:42：极客等宽字体
+   - 底部 Prompt 输入框：直角黑框 + 等宽字体 + 绿色模型徽章
+   ============================================================================== */
+.claudian-container,
+.claudian-settings,
+.claudian-inline-input-container,
+.claudian-inline-menu-layer {
+  --claudian-brand: var(--mp-green-deep) !important;
+  --claudian-brand-rgb: 38, 89, 63 !important;
+  --claudian-brand-claude: var(--mp-green-deep) !important;
+  --claudian-brand-claude-rgb: 38, 89, 63 !important;
+  --claudian-side-chat: var(--mp-green-deep) !important;
+  background-color: var(--background-secondary) !important;
+}
+
+/* 顶部用户提问卡片 (复刻原图左上角黑框+硬边阴影盒) */
+.claudian-message-user {
+  max-width: 96% !important;
+  align-self: stretch !important;
+  margin: 8px 4px 12px 0 !important;
+}
+
+.claudian-message-user > .claudian-message-content {
+  background-color: var(--background-primary-alt) !important;
+  color: var(--text-normal) !important;
+  border: 1.5px solid var(--mp-ink-border) !important;
+  border-radius: 0px !important;
+  padding: 12px 14px !important;
+  font-family: var(--font-text) !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  line-height: 1.55 !important;
+  box-shadow: var(--mp-hard-shadow-size) var(--mp-hard-shadow-size) 0px var(--mp-green-shadow) !important;
+}
+
+/* Worked for 00:42 思考状态栏：强制使用极客等宽字体 */
+.claudian-thinking-header,
+.claudian-thinking-label,
+.claudian-thinking-hint,
+.claudian-tool-header,
+.claudian-subagent-header {
+  font-family: var(--font-monospace) !important;
+  font-size: 12.5px !important;
+  color: var(--text-muted) !important;
+  border-radius: 0px !important;
+}
+
+/* AI 回答正文：紧凑高可读性黑粗体排版 */
+.claudian-message-assistant .claudian-message-content {
+  font-family: var(--font-text) !important;
+  font-size: 13.5px !important;
+  line-height: 1.65 !important;
+  color: var(--text-normal) !important;
+  font-weight: 450 !important;
+}
+.claudian-message-assistant .claudian-message-content strong {
+  font-weight: 700 !important;
+  color: #0D0F0E !important;
+}
+
+/* 底部 Prompt 输入框容器：复刻原图直角黑框 + 等宽输入区 */
+.claudian-input-composer {
+  background-color: var(--background-secondary) !important;
+  border-radius: 0px !important;
+  box-shadow: none !important;
+}
+
+.claudian-input-wrapper {
+  --claudian-input-wrapper-radius: 0px !important;
+  --claudian-input-wrapper-border-color: var(--mp-ink-border) !important;
+  background-color: var(--background-primary) !important;
+  border: 1.5px solid var(--mp-ink-border) !important;
+  border-radius: 0px !important;
+  box-shadow: var(--mp-hard-shadow-sm) var(--mp-hard-shadow-sm) 0px var(--mp-green-shadow) !important;
+}
+
+.claudian-input-wrapper:focus-within {
+  border-color: var(--mp-ink-border) !important;
+  box-shadow: var(--mp-hard-shadow-size) var(--mp-hard-shadow-size) 0px var(--mp-green-tab) !important;
+}
+
+.claudian-input-wrapper .claudian-composer-editor {
+  font-family: var(--font-monospace) !important;
+  font-size: 12.5px !important;
+  line-height: 1.5 !important;
+  color: var(--text-normal) !important;
+}
+
+.claudian-input-toolbar,
+.claudian-input-toolbar button.claudian-toolbar-chip,
+.claudian-input-info-row,
+.claudian-context-chip {
+  font-family: var(--font-monospace) !important;
+  font-size: 11.5px !important;
+  border-radius: 0px !important;
+}
+
+/* ==============================================================================
+   5. 中央正文排版：黑粗体标题、印刷感正文、浓绿粗下划线双链、粗犷亮绿阴影块
+   ============================================================================== */
+.view-content,
+.markdown-source-view.mod-cm6,
+.markdown-reading-view,
+.markdown-rendered {
+  background-color: var(--background-primary) !important;
+}
+
+/* 正文基础排版：扎实油墨黑体 (默认 450 Medium 字重模拟印刷铅字) */
+.markdown-rendered,
+.markdown-source-view.mod-cm6 .cm-content,
+.markdown-source-view.mod-cm6 .cm-line {
+  font-family: var(--font-text) !important;
+  font-size: var(--font-text-size, 17px) !important;
+  line-height: var(--line-height-normal) !important;
+  color: var(--text-normal) !important;
+  font-weight: 450 !important;
+  letter-spacing: 0.005em !important;
+}
+
+.markdown-rendered p,
+.markdown-rendered li {
+  line-height: var(--line-height-normal) !important;
+  margin-block: 0 var(--p-spacing, 0.92em) !important;
+  font-weight: 450 !important;
+}
+
+.cm-line {
+  line-height: var(--line-height-normal) !important;
+  padding-bottom: 0.36em !important;
+}
+.cm-line.HyperMD-codeblock,
+.cm-line:has(.cm-table-widget),
+.cm-line:empty {
+  padding-bottom: 0 !important;
+}
+
+/* 粗体字强化 */
+.markdown-rendered strong,
+.cm-strong {
+  font-weight: 750 !important;
+  color: #0C0E0D !important;
+}
+.theme-dark .markdown-rendered strong,
+.theme-dark .cm-strong {
+  color: #FFFFFF !important;
+}
+
+/* --- 5.1 标题体系：复刻原图极具冲击力的重黑粗体 (Heavy Gothic 750~800) --- */
+.inline-title,
+.markdown-rendered h1, .cm-header-1,
+.markdown-rendered h2, .cm-header-2,
+.markdown-rendered h3, .cm-header-3,
+.markdown-rendered h4, .cm-header-4,
+.markdown-rendered h5, .cm-header-5,
+.markdown-rendered h6, .cm-header-6,
+.cm-line.HyperMD-header {
+  font-family: var(--font-text) !important;
+  color: #101210 !important;
+  font-weight: 750 !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.3 !important;
+}
+.theme-dark .inline-title,
+.theme-dark .markdown-rendered h1, .theme-dark .cm-header-1,
+.theme-dark .markdown-rendered h2, .theme-dark .cm-header-2,
+.theme-dark .markdown-rendered h3, .theme-dark .cm-header-3,
+.theme-dark .cm-line.HyperMD-header {
+  color: #F4F2EC !important;
+}
+
+.inline-title,
+.markdown-rendered h1,
+.cm-header-1 {
+  font-size: 1.75rem !important;
+  font-weight: 800 !important;
+  margin-top: 1.2em !important;
+  margin-bottom: 0.7em !important;
+  border-bottom: none !important;
+}
+
+.markdown-rendered h2,
+.cm-header-2 {
+  font-size: 1.35rem !important;
+  font-weight: 750 !important;
+  margin-top: 1.35em !important;
+  margin-bottom: 0.5em !important;
+  border-bottom: none !important;
+}
+
+.markdown-rendered h3,
+.cm-header-3 {
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  margin-top: 1.2em !important;
+  margin-bottom: 0.45em !important;
+}
+
+/* --- 5.2 双链与外链：复刻原图「炭黑粗字 + 2px 浓绿实线底边」，悬停铺满淡绿块 --- */
+.cm-underline,
+.cm-link .cm-underline,
+.cm-hmd-internal-link .cm-underline {
+  text-decoration: none !important;
+}
+
+.markdown-rendered .internal-link,
+.markdown-source-view.mod-cm6 .cm-hmd-internal-link,
+.markdown-rendered .external-link,
+.markdown-source-view.mod-cm6 .cm-link,
+.claudian-file-link,
+.claudian-composer-wikilink {
+  color: var(--text-normal) !important;
+  font-weight: 600 !important;
+  text-decoration: underline !important;
+  text-decoration-style: solid !important;
+  text-decoration-color: var(--mp-green-deep) !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 3px !important;
+  border-radius: 0px !important;
+  padding: 0 2px !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  transition: background-color 0.1s ease, color 0.1s ease !important;
+}
+
+.markdown-rendered .internal-link:hover,
+.markdown-source-view.mod-cm6 .cm-hmd-internal-link:hover,
+.markdown-rendered .external-link:hover,
+.markdown-source-view.mod-cm6 .cm-link:hover,
+.claudian-file-link:hover {
+  background-color: var(--mp-green-soft) !important;
+  color: #0D0F0E !important;
+  text-decoration-color: var(--mp-ink-border) !important;
+  box-shadow: 2px 2px 0px var(--mp-green-deep) !important;
+}
+
+/* 标签 (#tag)：直角黑框 + 淡绿底色 + 等宽字体 */
+a.tag,
+.cm-hashtag,
+.metadata-property-value .multi-select-pill {
+  font-family: var(--font-monospace) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: var(--mp-green-deep) !important;
+  background-color: var(--mp-green-tint) !important;
+  border: 1px solid var(--mp-ink-border) !important;
+  border-radius: 0px !important;
+  padding: 1px 6px !important;
+  text-decoration: none !important;
+  box-shadow: 2px 2px 0px var(--mp-green-shadow) !important;
+}
+.cm-hashtag-begin {
+  border-right: none !important;
+  box-shadow: none !important;
+  padding-right: 0 !important;
+}
+.cm-hashtag-end {
+  border-left: none !important;
+  padding-left: 0 !important;
+}
+
+/* --- 5.3 引用块与 Callout：直角黑框 + 浓绿左竖条 + 粗犷淡绿硬边阴影 --- */
+.markdown-rendered blockquote {
+  background-color: var(--background-primary-alt) !important;
+  border: 1.5px solid var(--mp-ink-border) !important;
+  border-left: 5px solid var(--mp-green-deep) !important;
+  border-radius: 0px !important;
+  padding: 12px 16px !important;
+  margin: 1.2em 0 !important;
+  color: var(--text-normal) !important;
+  box-shadow: var(--mp-hard-shadow-size) var(--mp-hard-shadow-size) 0px var(--mp-green-shadow) !important;
+}
+
+/* CM6 实时编辑引用块：保留原生光标对齐，左侧 4px 浓绿实线 */
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote {
+  background-color: var(--mp-green-tint) !important;
+  color: var(--text-normal) !important;
+  padding-top: 3px !important;
+  padding-bottom: 3px !important;
+  padding-inline-start: 16px !important;
+  text-indent: 0 !important;
+}
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote:before,
+.markdown-source-view.mod-cm6 .cm-blockquote-border:before {
+  border-left: 4px solid var(--mp-green-deep) !important;
+  border-inline-start: 4px solid var(--mp-green-deep) !important;
+  inset-inline-start: 0 !important;
+}
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote .cm-formatting-quote,
+.markdown-source-view.mod-cm6.is-live-preview span.cm-formatting-quote {
+  display: none !important;
+}
+
+/* Callout 卡片（含船板专属四大写作分区） */
+.callout {
+  background-color: var(--background-primary-alt) !important;
+  border: 1.5px solid var(--mp-ink-border) !important;
+  border-left: 5px solid rgb(var(--callout-color, 38, 89, 63)) !important;
+  border-radius: 0px !important;
+  padding: 12px 16px !important;
+  margin: 1.25em 0 !important;
+  box-shadow: var(--mp-hard-shadow-size) var(--mp-hard-shadow-size) 0px var(--mp-green-shadow) !important;
+}
+.callout-title {
+  font-family: var(--font-text) !important;
+  font-weight: 750 !important;
+  color: #101210 !important;
+  border-bottom: 1px solid var(--mp-ink-border-soft) !important;
+  padding-bottom: 6px !important;
+  margin-bottom: 6px !important;
+}
+.callout[data-callout="想法"], .callout[data-callout="idea"] { --callout-color: 184, 134, 45; }
+.callout[data-callout="草稿"], .callout[data-callout="draft"] { --callout-color: 38, 89, 63; }
+.callout[data-callout="正文"], .callout[data-callout="main"] { --callout-color: 43, 108, 110; }
+.callout[data-callout="预告"], .callout[data-callout="next"] { --callout-color: 95, 102, 95; }
+
+/* --- 5.4 代码块与行内代码：直角黑线框 + 硬朗等宽 --- */
+.cm-line:not(.HyperMD-codeblock) .cm-inline-code,
+.markdown-rendered code:not(pre code) {
+  font-family: var(--font-monospace) !important;
+  font-size: 0.86em !important;
+  font-weight: 600 !important;
+  background-color: var(--mp-green-tint) !important;
+  color: var(--mp-green-deep) !important;
+  border: 1px solid var(--mp-ink-border) !important;
+  border-radius: 0px !important;
+  padding: 1px 5px !important;
+}
+
+.markdown-rendered pre,
+.markdown-source-view.mod-cm6 div.HyperMD-codeblock-bg {
+  background-color: var(--code-background) !important;
+  border: 1.5px solid var(--mp-ink-border) !important;
+  border-radius: 0px !important;
+  box-shadow: var(--mp-hard-shadow-size) var(--mp-hard-shadow-size) 0px var(--mp-green-shadow) !important;
+}
+
+/* ==============================================================================
+   6. 右侧大纲 (Outline) 与 Bases 数据库表格 (1:1 复刻原图右侧上下分栏)
+   ============================================================================== */
+
+/* --- 6.1 右上角：大纲面板 (深一度的亚麻暖灰底色 + 鼠尾草淡绿直角条高亮) --- */
+.workspace-leaf-content[data-type='outline'],
+.workspace-leaf-content[data-type='outline'] .view-content {
+  background-color: var(--background-secondary-alt) !important;
+  padding: 8px 10px !important;
+}
+
+.workspace-leaf-content[data-type='outline'] .tree-item-self {
+  border-radius: 0px !important;
+  padding: 5px 8px 5px 20px !important;
+  margin-bottom: 2px !important;
+  font-family: var(--font-interface) !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  color: var(--text-muted) !important;
+  border: 1px solid transparent !important;
+  position: relative !important;
+}
+
+.workspace-leaf-content[data-type='outline'] .tree-item-self .tree-item-icon {
+  position: absolute !important;
+  left: 3px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+.workspace-leaf-content[data-type='outline'] .tree-item-self:hover {
+  background-color: var(--mp-green-tint) !important;
+  color: var(--text-normal) !important;
+  border-color: var(--mp-ink-border) !important;
+}
+
+/* 当前所处章节高亮：复刻原图「整行纯直角淡绿条 (#C2DBC8) + 炭黑粗体字」 */
+.workspace-leaf-content[data-type='outline'] .tree-item-self.is-active {
+  background-color: var(--mp-green-soft) !important;
+  color: #101210 !important;
+  font-weight: 700 !important;
+  border-radius: 0px !important;
+  border-left: 3px solid var(--mp-green-deep) !important;
+}
+.workspace-leaf-content[data-type='outline'] .tree-item-self.is-active .tree-item-inner {
+  color: #101210 !important;
+  font-weight: 700 !important;
+}
+
+/* --- 6.2 右下角：Obsidian Bases 数据库表格与 Markdown 表格 --- */
+.workspace-leaf-content[data-type='bases'],
+.workspace-leaf-content[data-type='bases'] .view-content,
+.bases-view {
+  background-color: var(--background-secondary) !important;
+  font-family: var(--font-interface) !important;
+}
+
+.bases-header,
+.bases-toolbar {
+  background-color: var(--background-secondary) !important;
+  border-bottom: 1px solid var(--mp-ink-border) !important;
+  font-family: var(--font-monospace) !important;
+  font-size: 12px !important;
+}
+
+/* 表格行：严格 1px 实线分割，文件名带浓绿下划线，时间戳采用等宽字体 */
+.bases-table,
+.bases-thead,
+.bases-tbody,
+.bases-tr,
+.bases-th,
+.bases-td,
+.markdown-rendered table,
+.markdown-rendered th,
+.markdown-rendered td {
+  border-color: var(--mp-ink-border) !important;
+  border-radius: 0px !important;
+}
+
+.bases-th,
+.markdown-rendered th {
+  background-color: var(--background-secondary-alt) !important;
+  font-family: var(--font-monospace) !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  color: var(--text-normal) !important;
+  border-bottom: 1.5px solid var(--mp-ink-border) !important;
+}
+
+.bases-td,
+.markdown-rendered td {
+  font-size: 12.5px !important;
+  border-bottom: 1px solid var(--mp-ink-border-soft) !important;
+  padding: 5px 8px !important;
+}
+
+/* Bases 文件名链接：复刻原图右下角浓绿粗底线样式 */
+.bases-td a,
+.bases-file-link,
+.bases-table .internal-link {
+  color: var(--text-normal) !important;
+  font-weight: 600 !important;
+  text-decoration: underline !important;
+  text-decoration-color: var(--mp-green-deep) !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 2px !important;
+}
+
+/* Bases 时间与数字列：强制等宽对齐 */
+.bases-td:not(:first-child) {
+  font-family: var(--font-monospace) !important;
+  font-size: 11.5px !important;
+  color: var(--text-muted) !important;
+  font-variant-numeric: tabular-nums !important;
+}
+
+/* ==============================================================================
+   7. 原生文件树、Notebook Navigator、属性面板、按钮与弹窗
+   ============================================================================== */
+.nav-files-container,
+.workspace-sidedock,
+.nn-list-pane,
+.nn-nav-pane,
+.nn-view {
+  background-color: var(--background-secondary) !important;
+}
+
+.nav-folder-title,
+.nav-file-title,
+.nn-file,
+.nn-file-content {
+  border-radius: 0px !important;
+  font-family: var(--font-interface) !important;
+  font-weight: 500 !important;
+}
+
+.nav-file-title:hover,
+.nav-folder-title:hover,
+.nn-file:hover:not(.nn-selected) {
+  background-color: var(--mp-green-tint) !important;
+}
+
+.nav-file-title.is-active,
+.nn-file.nn-selected,
+.nn-file.nn-selected .nn-file-content {
+  background-color: var(--mp-green-soft) !important;
+  color: #101210 !important;
+  font-weight: 700 !important;
+  border-radius: 0px !important;
+  box-shadow: inset 3px 0 0 var(--mp-green-deep) !important;
+}
+
+/* 笔记顶部 YAML 属性区 (Properties) */
+.metadata-container {
+  background-color: var(--background-primary-alt) !important;
+  border: 1.5px solid var(--mp-ink-border) !important;
+  border-radius: 0px !important;
+  padding: 10px 14px !important;
+  margin: 12px 0 20px 0 !important;
+  box-shadow: var(--mp-hard-shadow-size) var(--mp-hard-shadow-size) 0px var(--mp-green-shadow) !important;
+}
+.metadata-property-key {
+  font-family: var(--font-monospace) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+/* 全局按钮与输入框：新粗野主义机械按键回弹反馈 */
+button:not(.clickable-icon):not(.claudian-toolbar-chip),
+.mod-cta,
+input[type='text'],
+input[type='search'],
+textarea,
+.dropdown {
+  border-radius: 0px !important;
+  border: 1.5px solid var(--mp-ink-border) !important;
+  font-family: var(--font-interface) !important;
+  font-weight: 600 !important;
+  box-shadow: 2px 2px 0px var(--mp-green-shadow) !important;
+  transition: transform 0.08s ease, box-shadow 0.08s ease !important;
+}
+
+button.mod-cta {
+  background-color: var(--mp-green-deep) !important;
+  color: #F4F2EC !important;
+}
+
+button:not(.clickable-icon):hover {
+  background-color: var(--mp-green-soft) !important;
+  color: #101210 !important;
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 3px 3px 0px var(--mp-green-deep) !important;
+}
+
+button:not(.clickable-icon):active {
+  transform: translate(1px, 1px) !important;
+  box-shadow: 0px 0px 0px transparent !important;
+}
+
+/* 弹窗、命令面板、右键菜单与悬浮预览卡：直角粗黑框 + 硬边亮绿阴影 */
+.modal,
+.prompt,
+.menu,
+body .popover.hover-popover {
+  background-color: var(--background-primary) !important;
+  border: 1.5px solid var(--mp-ink-border) !important;
+  border-radius: 0px !important;
+  box-shadow: 4px 4px 0px var(--mp-green-shadow) !important;
+}
+
+.suggestion-item,
+.menu-item {
+  border-radius: 0px !important;
+}
+.suggestion-item.is-selected,
+.menu-item:hover,
+.menu-item.is-selected {
+  background-color: var(--mp-green-soft) !important;
+  color: #101210 !important;
+  font-weight: 600 !important;
+  box-shadow: inset 3px 0 0 var(--mp-green-deep) !important;
+}
+
+/* 底部状态栏：直角网格顶边 + 等宽数字 */
+.status-bar {
+  background-color: var(--status-bar-background) !important;
+  border-top: 1px solid var(--mp-ink-border) !important;
+  border-left: 1px solid var(--mp-ink-border) !important;
+  border-radius: 0px !important;
+  font-family: var(--font-monospace) !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+}
+
+/* ==============================================================================
+   8. 字体预设扩展与悬浮预览卡高密度锁定
+   ============================================================================== */
+body.mp-font-typewriter {
+  --font-text-theme: var(--mp-font-typewriter-stack);
+  --font-text: var(--font-text-override, var(--font-text-theme));
+}
+body.mp-font-songti {
+  --font-text-theme: var(--mp-font-songti-stack);
+  --font-text: var(--font-text-override, var(--font-text-theme));
+  --line-height-normal: 1.68;
+}
+
+body .popover.hover-popover {
+  --popover-width: 440px !important;
+  --popover-height: 360px !important;
+  --popover-font-size: 13px !important;
+  --font-text-size: 13px !important;
+  --line-height-normal: 1.52 !important;
+}
+body .popover.hover-popover .metadata-container {
+  display: none !important;
+}
+body .popover.hover-popover .markdown-rendered p,
+body .popover.hover-popover .markdown-rendered li,
+body .popover.hover-popover .markdown-source-view.mod-cm6 .cm-content,
+body .popover.hover-popover .markdown-source-view.mod-cm6 .cm-line {
+  font-size: 13px !important;
+  line-height: 1.52 !important;
+}
