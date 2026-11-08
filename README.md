@@ -35,6 +35,21 @@
 
 ---
 
+## 📝 Changelog / 更新日志
+
+See [CHANGELOG.md](CHANGELOG.md) for full details.
+
+- **`v1.0.2` (2026-11-08)** — **Top Navigation Grid & Active Tab Alignment Fix (顶部导航栏与激活标签页像素级对齐修复)**:
+  - Unified `--header-height: 36px` globally across `.workspace-ribbon`, `.workspace-ribbon::before`, and `.sidebar-toggle-button.mod-left` to eliminate the `4px` vertical step between the left ribbon toggle and the sidebar tab bar (`40px` vs `36px`).
+  - Reset Obsidian's native `.workspace-tab-header-container-inner` top/bottom offsets (`margin: 5px -6px -1px; padding: 1px 6px 0px`) to `0` and locked `.mod-root .workspace-tab-header` to `height: 100%` (`border-box`), fixing the `6px` downward protrusion of the green active tab over the horizontal `1px` grid line.
+  - Standardized sidebar tab icon buttons (`.mod-left-split` / `.mod-right-split .workspace-tab-header`) to `24×24px` to match the top-left sidebar toggle box (`[◧]`).
+- **`v1.0.1` (2026-11-08)** — **Showcase Screenshot & Visual Design Breakdown (展示主图更新与视觉细节图解)**:
+  - Updated the primary showcase screenshot (`screenshot.png`) and added the annotated visual design breakdown (`screenshot-overview.png`).
+- **`v1.0.0` (2026-11-08)** — **Initial Official Release (首发正式版)**:
+  - Initial release of **`chuanban-green`（松绿记事本）** featuring an exposed `1px` high-contrast grid, `0px` sharp corners, 3-tier warm newsprint palette, forest/sage green accents with hard-edge shadows, rectangular toggle switches/sliders, editorial properties table, and full Style Settings / Dark Mode support.
+
+---
+
 ## 📄 License
 
 [MIT License](LICENSE) © 2026 chuanban ([Anarcadia](https://github.com/Anarcadia))
