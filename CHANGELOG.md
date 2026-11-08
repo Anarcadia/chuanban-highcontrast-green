@@ -4,6 +4,19 @@ All notable changes to **`chuanban-green`（松绿记事本）** are documented 
 
 ---
 
+## [1.0.3] - 2026-11-08
+
+### Fixed / 修复
+- **Windows / Linux Hidden Frameless `.titlebar` Overlay Fix（修复 Windows/Linux 隐藏标题栏模式下 `.titlebar` 不透明背景遮挡整个顶栏图标）**:
+  - Scoped opaque `.titlebar` background & bottom border to `body:not(.is-hidden-frameless) .titlebar`, and explicitly enforced `background: transparent !important; border: none !important; pointer-events: none !important; height: calc(var(--header-height) - 1px) !important` on `body.is-hidden-frameless:not(.starter, .is-popout-modal) .titlebar` while keeping `.titlebar-button-container` interactive.
+- **Window Control Safe Space `--frame-left-space` & `--frame-right-space` Preservation（恢复 Windows 右上角 `- □ ×` 窗口按钮与 macOS 红绿灯安全预留区）**:
+  - Replaced `padding: 0 !important` / `padding: 0 8px !important` on `.workspace-tab-header-container` with `padding-top: 0 !important; padding-bottom: 0 !important` and explicit `.mod-top-left-space` / `.mod-top-right-space` padding formulas (`calc(8px + var(--frame-right-space, 0px))` on Windows/Linux, `calc(38px + var(--frame-right-space, 0px))` on macOS).
+  - Locked `.sidebar-toggle-button` height to `calc(var(--header-height) - 1px) !important` (`35px`) so `position: fixed` secondary toggle buttons in hidden-frameless mode never stretch to `100vh`.
+- **Sidebar Icon Inner Padding Reset（消除侧栏小图标内部 `padding: 0 6px` 挤压裁切）**:
+  - Reset `.workspace-sidedock / .mod-left-split / .mod-right-split .workspace-tab-header-inner` (`padding: 0 !important; width: 100% !important; height: 100% !important; overflow: visible !important`) so `24×24px` sidebar tab icons center cleanly without clipping.
+
+---
+
 ## [1.0.2] - 2026-11-08
 
 ### Fixed / 修复

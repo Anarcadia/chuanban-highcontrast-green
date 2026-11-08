@@ -1,7 +1,7 @@
 /* ==============================================================================
    chuanban-green (松绿记事本) — Botanical Editorial Neo-Brutalism Theme for Obsidian
    Author: chuanban (https://github.com/Anarcadia)
-   Version: 1.0.2
+   Version: 1.0.3
    License: MIT
    Description: 「松绿记事本」暖调纸媒新粗野主义 (Warm Editorial Neo-Brutalism) 独立主题。
                 复刻「直角高对比 1px 外露黑框网格 + 三阶灰调印刷纸张底色 + 黑粗体排版 +
@@ -362,11 +362,33 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* 顶部窗口栏与左侧 Ribbon 窄边栏：严格 1px 炭黑实线切分 */
-.titlebar {
+/* 顶部窗口栏与左侧 Ribbon 窄边栏：严格 1px 炭黑实线切分（兼容 Windows/Linux/macOS 隐藏标题栏模式） */
+body:not(.is-hidden-frameless) .titlebar,
+body.is-hidden-frameless.starter .titlebar,
+body.is-hidden-frameless.is-popout-modal .titlebar {
   background-color: var(--titlebar-background) !important;
   border-bottom: 1px solid var(--mp-ink-border) !important;
   height: 36px;
+}
+
+/* Windows / Linux 隐藏标题栏模式 (.is-hidden-frameless) 下 .titlebar 为全宽置顶浮层，必须保持透明不遮挡底下顶栏图标 */
+body.is-hidden-frameless:not(.starter, .is-popout-modal) .titlebar {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  height: calc(var(--header-height) - 1px) !important;
+  pointer-events: none !important;
+}
+
+body.is-hidden-frameless:not(.starter, .is-popout-modal) .titlebar-button-container {
+  pointer-events: auto !important;
+  height: calc(var(--header-height) - 1px) !important;
+}
+
+body.is-hidden-frameless:not(.is-fullscreen) .titlebar-button-container.mod-right {
+  background-color: var(--titlebar-background) !important;
 }
 
 .workspace-ribbon,
@@ -389,19 +411,12 @@ body {
   border-radius: 0px !important;
 }
 
-.sidebar-toggle-button.mod-left {
-  height: 36px !important;
-  min-height: 36px !important;
-  border-bottom: 1px solid var(--mp-ink-border) !important;
-  box-sizing: border-box !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-.sidebar-toggle-button.mod-right {
-  height: 100% !important;
-  min-height: 0 !important;
+.sidebar-toggle-button {
+  height: calc(var(--header-height) - 1px) !important;
+  min-height: calc(var(--header-height) - 1px) !important;
+  max-height: calc(var(--header-height) - 1px) !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
   border: none !important;
   box-sizing: border-box !important;
   display: flex !important;
@@ -457,11 +472,31 @@ body {
 .workspace-tab-header-container {
   background-color: var(--tab-container-background) !important;
   border-bottom: 1px solid var(--mp-ink-border) !important;
-  padding: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-left: 0;
+  padding-right: 0;
   height: 36px !important;
   min-height: 36px !important;
   box-sizing: border-box !important;
   gap: 0 !important;
+}
+
+/* 保留 Windows / Linux / macOS 隐藏标题栏模式下左上角（红绿灯/图标）与右上角（- □ × 窗口按钮）安全预留区 */
+.is-hidden-frameless:not(.is-fullscreen) .workspace-tabs.mod-top-left-space .workspace-tab-header-container {
+  padding-left: calc(8px + var(--frame-left-space, 0px)) !important;
+}
+
+.is-hidden-frameless:not(.is-fullscreen) .workspace-tabs.mod-top-right-space .workspace-tab-header-container {
+  padding-right: calc(8px + var(--frame-right-space, 0px)) !important;
+}
+
+.mod-macos.is-hidden-frameless:not(.is-popout-window, .is-mobile):not(.mod-rtl) .workspace .workspace-tabs.mod-top-right-space .workspace-tab-header-container {
+  padding-right: calc(38px + var(--frame-right-space, 0px)) !important;
+}
+
+.mod-macos.is-hidden-frameless:not(.is-popout-window, .is-mobile).mod-rtl .workspace .workspace-tabs.mod-top-left-space .workspace-tab-header-container {
+  padding-left: calc(38px + var(--frame-left-space, 0px)) !important;
 }
 
 /* 消除 Obsidian 原生 .workspace-tab-header-container-inner 的 5px 顶部偏移与 1px 内边距，防止激活 Tab 向下溢出压线 */
@@ -481,7 +516,7 @@ body {
   align-items: center !important;
 }
 
-/* 彻底抹除 Obsidian 默认标签页两侧的圆弧伪元素 */
+/* 彻底抹除 Obsidian 默认标签页两侧的圆弧伪元素（保留 .workspace-tab-header-container 的拖拽防遮挡伪元素） */
 .workspace-tab-header::before,
 .workspace-tab-header::after,
 .workspace-tab-header-inner::before,
@@ -550,7 +585,10 @@ body {
   border-bottom: 1px solid var(--mp-ink-border) !important;
   height: 36px !important;
   min-height: 36px !important;
-  padding: 0 8px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-left: 8px;
+  padding-right: 8px;
   display: flex !important;
   align-items: center !important;
 }
@@ -576,6 +614,34 @@ body {
   background: transparent !important;
   color: var(--text-normal) !important;
   display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+}
+
+/* 清空侧栏小图标内部 .workspace-tab-header-inner 默认 padding: 0 6px，彻底消除图标被横向挤压裁切 */
+.workspace-sidedock .workspace-tab-header-inner,
+.mod-left-split .workspace-tab-header-inner,
+.mod-right-split .workspace-tab-header-inner {
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+  border-radius: 0px !important;
+  background: transparent !important;
+  overflow: visible !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.workspace-sidedock .workspace-tab-header-inner-icon,
+.mod-left-split .workspace-tab-header-inner-icon,
+.mod-right-split .workspace-tab-header-inner-icon {
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
   align-items: center !important;
   justify-content: center !important;
 }

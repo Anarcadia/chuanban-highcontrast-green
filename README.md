@@ -39,6 +39,10 @@
 
 See [CHANGELOG.md](CHANGELOG.md) for full details.
 
+- **`v1.0.3` (2026-11-08)** — **Windows / Linux / macOS Hidden Frameless Titlebar Compatibility Fix (Windows/Linux 隐藏标题栏模式顶栏遮挡与窗口按钮预留区修复)**:
+  - Fixed `.titlebar` forcing an opaque background in `body.is-hidden-frameless` mode on Windows/Linux, which previously covered the top-left and top-right sidebar icons and tab bar.
+  - Replaced hardcoded horizontal `padding: 0 !important` / `padding: 0 8px !important` on `.workspace-tab-header-container` with explicit `--frame-left-space` and `--frame-right-space` rules (`calc(8px + var(--frame-right-space, 0px))`), preventing top-right icons from colliding with Windows `- □ ×` window buttons or macOS traffic lights.
+  - Cleared `.workspace-tab-header-inner` default `padding: 0 6px` inside `.mod-left-split` / `.mod-right-split` / `.workspace-sidedock` so `24×24px` sidebar tab icons render without horizontal clipping.
 - **`v1.0.2` (2026-11-08)** — **Top Navigation Grid & Active Tab Alignment Fix (顶部导航栏与激活标签页像素级对齐修复)**:
   - Unified `--header-height: 36px` globally across `.workspace-ribbon`, `.workspace-ribbon::before`, and `.sidebar-toggle-button.mod-left` to eliminate the `4px` vertical step between the left ribbon toggle and the sidebar tab bar (`40px` vs `36px`).
   - Reset Obsidian's native `.workspace-tab-header-container-inner` top/bottom offsets (`margin: 5px -6px -1px; padding: 1px 6px 0px`) to `0` and locked `.mod-root .workspace-tab-header` to `height: 100%` (`border-box`), fixing the `6px` downward protrusion of the green active tab over the horizontal `1px` grid line.
