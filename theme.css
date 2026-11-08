@@ -114,9 +114,10 @@ body {
   --tab-curve: 0px !important;
   --tab-radius: 0px !important;
   --tab-radius-active: 0px !important;
-  --checkbox-radius: 0px !important;
-  --toggle-radius: 0px !important;
-  --slider-thumb-radius: 0px !important;
+  --checkbox-radius: 1.5px !important;
+  --toggle-radius: 2px !important;
+  --toggle-thumb-radius: 1.5px !important;
+  --slider-thumb-radius: 1.5px !important;
   --callout-radius: 0px !important;
   --embed-border-radius: 0px !important;
 
@@ -1078,6 +1079,97 @@ button:not(.clickable-icon):hover {
 button:not(.clickable-icon):active {
   transform: translate(1px, 1px) !important;
   box-shadow: 0px 0px 0px transparent !important;
+}
+
+/* --- 7.2 开关按钮 (Toggle Switch) 与拖动条滑块 (Range Slider)：微倒角矩形机械拨片 --- */
+.checkbox-container {
+  width: 42px !important;
+  height: 22px !important;
+  border-radius: 2px !important;
+  border: 1.5px solid var(--mp-ink-border) !important;
+  background-color: var(--background-secondary-alt) !important;
+  box-shadow: 2px 2px 0px rgba(24, 27, 24, 0.16) !important;
+  position: relative !important;
+  cursor: pointer !important;
+  transition: background-color 0.12s ease, box-shadow 0.12s ease !important;
+}
+
+.checkbox-container::before {
+  display: none !important;
+}
+
+/* 开关内部滑块：带 1.5px 微圆角与炭黑实线边框的矩形小方块 */
+.checkbox-container::after {
+  width: 16px !important;
+  height: 14px !important;
+  border-radius: 1.5px !important;
+  background-color: var(--background-primary-alt) !important;
+  border: 1.5px solid var(--mp-ink-border) !important;
+  box-shadow: none !important;
+  top: 2.5px !important;
+  left: 2.5px !important;
+  margin: 0 !important;
+  transform: translate3d(0, 0, 0) !important;
+  transition: transform 0.12s cubic-bezier(0.2, 0.85, 0.32, 1.2), background-color 0.12s ease !important;
+}
+
+.checkbox-container.is-enabled {
+  background-color: var(--mp-green-deep) !important;
+  border-color: var(--mp-ink-border) !important;
+  box-shadow: 2px 2px 0px var(--mp-green-shadow) !important;
+}
+
+.checkbox-container.is-enabled::after {
+  background-color: #F4F2EC !important;
+  border-color: var(--mp-ink-border) !important;
+  transform: translate3d(18px, 0, 0) !important;
+}
+
+.checkbox-container:hover::after {
+  background-color: #FFFFFF !important;
+}
+
+/* 复选框 (Task Checkbox) 同样保持 1.5px 微圆角硬朗方框 */
+input[type="checkbox"],
+.task-list-item-checkbox {
+  border-radius: 1.5px !important;
+  border: 1.5px solid var(--mp-ink-border) !important;
+}
+input[type="checkbox"]:checked,
+.task-list-item-checkbox:checked {
+  background-color: var(--mp-green-deep) !important;
+  border-color: var(--mp-ink-border) !important;
+}
+
+/* 数值拖动条滑块 (Range Slider)：矩形导轨 + 竖向微圆角机械推子 */
+input[type="range"] {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  height: 6px !important;
+  background-color: var(--background-secondary-alt) !important;
+  border: 1.5px solid var(--mp-ink-border) !important;
+  border-radius: 1.5px !important;
+  outline: none !important;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  width: 12px !important;
+  height: 18px !important;
+  border-radius: 1.5px !important;
+  background-color: var(--background-primary-alt) !important;
+  border: 1.5px solid var(--mp-ink-border) !important;
+  box-shadow: 2px 2px 0px var(--mp-green-deep) !important;
+  cursor: pointer !important;
+  margin-top: -7.5px !important;
+  transition: background-color 0.1s ease, transform 0.1s ease !important;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover,
+input[type="range"]::-webkit-slider-thumb:active {
+  background-color: var(--mp-green-tab) !important;
+  transform: translate(-1px, -1px) !important;
 }
 
 /* 弹窗、命令面板、右键菜单与悬浮预览卡：直角粗黑框 + 硬边亮绿阴影 */
