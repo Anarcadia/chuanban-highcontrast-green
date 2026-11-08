@@ -1,0 +1,9 @@
+{
+  "name": "chuanban-green",
+  "author": "chuanban",
+  "repo": "Anarcadia/chuanban-highcontrast-green",
+  "screenshot": "screenshot.png",
+  "modes": [
+    "light"
+  ]
+}
