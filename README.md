@@ -17,6 +17,12 @@
 | **粗犷亮绿硬边阴影 (`Hard Shadow`)** | `3px 3px 0px #A3C9AE` | 零模糊纯色硬边偏移阴影，应用于 Claudian 提问盒、引用块、Callout、代码块、属性框与按钮 |
 | **黑粗体 + 极客等宽混排** | 黑粗体 (`450`/`750~800`) + 等宽 (`Mono`) | 正文与标题采用高对比现代黑粗体；Claudian 状态行、Prompt 框、时间戳与表格数字采用等宽字体 |
 
+### 📐 界面细节图解 (Visual Design Breakdown)
+
+<p align="center">
+  <img src="screenshot-overview.png" alt="chuanban-green Visual Design Breakdown" width="82%" />
+</p>
+
 ---
 
 ## 📦 Installation / 安装与使用
