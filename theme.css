@@ -104,6 +104,9 @@ body {
   --font-text: var(--font-text-override, var(--font-text-theme));
   --font-monospace: var(--font-monospace-override, var(--font-monospace-theme));
 
+  /* 顶部导航栏与标签栏全局基准高度锁定（消除原生 40px 与 36px 错位） */
+  --header-height: 36px !important;
+
   /* 全域零圆角 (0px Sharp Brutalist Grid) + 开关/滑块微倒角 */
   --radius-s: 0px !important;
   --radius-m: 0px !important;
@@ -366,14 +369,44 @@ body {
   height: 36px;
 }
 
-.workspace-ribbon.mod-left {
+.workspace-ribbon,
+.workspace-ribbon.mod-left,
+.workspace-ribbon.mod-primary {
   background-color: var(--background-secondary) !important;
   border-right: 1px solid var(--mp-ink-border) !important;
+  margin-top: 36px !important;
+}
+
+.workspace-ribbon::before {
+  background-color: var(--background-secondary) !important;
+  border-bottom: 1px solid var(--mp-ink-border) !important;
+  height: 36px !important;
+  box-sizing: border-box !important;
 }
 
 .workspace-ribbon-collapse-btn,
 .sidebar-toggle-button {
   border-radius: 0px !important;
+}
+
+.sidebar-toggle-button.mod-left {
+  height: 36px !important;
+  min-height: 36px !important;
+  border-bottom: 1px solid var(--mp-ink-border) !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.sidebar-toggle-button.mod-right {
+  height: 100% !important;
+  min-height: 0 !important;
+  border: none !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 /* 左上角侧栏展开/收起按钮：复刻原图带 1px 实线小方框造型 */
@@ -427,7 +460,25 @@ body {
   padding: 0 !important;
   height: 36px !important;
   min-height: 36px !important;
+  box-sizing: border-box !important;
   gap: 0 !important;
+}
+
+/* 消除 Obsidian 原生 .workspace-tab-header-container-inner 的 5px 顶部偏移与 1px 内边距，防止激活 Tab 向下溢出压线 */
+.mod-root .workspace-tab-header-container-inner {
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100% !important;
+  align-items: stretch !important;
+}
+
+.workspace-sidedock .workspace-tab-header-container-inner,
+.mod-left-split .workspace-tab-header-container-inner,
+.mod-right-split .workspace-tab-header-container-inner {
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100% !important;
+  align-items: center !important;
 }
 
 /* 彻底抹除 Obsidian 默认标签页两侧的圆弧伪元素 */
@@ -444,7 +495,8 @@ body {
   border-radius: 0px !important;
   margin: 0 !important;
   padding: 0 12px !important;
-  height: 36px !important;
+  height: 100% !important;
+  box-sizing: border-box !important;
   border-right: 1px solid var(--mp-ink-border) !important;
   border-top: none !important;
   border-left: none !important;
@@ -511,12 +563,12 @@ body {
   gap: 6px !important;
 }
 
-/* 侧栏纯图标 Tab 按钮 */
+/* 侧栏纯图标 Tab 按钮（与左上角侧栏收起按钮统一锁定 24x24px，确保底边与硬阴影呼吸感对齐） */
 .mod-left-split .workspace-tab-header,
 .mod-right-split .workspace-tab-header {
-  width: 26px !important;
-  height: 26px !important;
-  min-width: 26px !important;
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
   padding: 0 !important;
   margin: 0 !important;
   border-radius: 0px !important;
