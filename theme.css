@@ -573,7 +573,7 @@ body.mp-tab-forest-dark .mod-root .workspace-tab-header.is-active .workspace-tab
   color: var(--text-normal) !important;
   border: 1.5px solid var(--mp-ink-border) !important;
   border-radius: 0px !important;
-  padding: 12px 14px !important;
+  padding: 12px 18px !important;
   font-family: var(--font-text) !important;
   font-size: 13.5px !important;
   font-weight: 600 !important;
@@ -581,16 +581,61 @@ body.mp-tab-forest-dark .mod-root .workspace-tab-header.is-active .workspace-tab
   box-shadow: var(--mp-hard-shadow-size) var(--mp-hard-shadow-size) 0px var(--mp-green-shadow) !important;
 }
 
-/* Worked for 00:42 思考状态栏：强制使用极客等宽字体 */
+/* Worked for 00:42 / 工作了 00:23 思考状态栏：等宽字体 + 舒适内边距呼吸感 */
 .claudian-thinking-header,
 .claudian-thinking-label,
 .claudian-thinking-hint,
 .claudian-tool-header,
-.claudian-subagent-header {
+.claudian-subagent-header,
+button.claudian-work-header {
   font-family: var(--font-monospace) !important;
   font-size: 12.5px !important;
   color: var(--text-muted) !important;
   border-radius: 0px !important;
+}
+
+button.claudian-work-header {
+  padding: 4px 10px !important;
+  margin: 4px 0 !important;
+  border: 1px solid var(--mp-ink-border) !important;
+  background-color: var(--background-primary-alt) !important;
+  box-shadow: 2px 2px 0px var(--mp-green-shadow) !important;
+  gap: 6px !important;
+  line-height: 1.35 !important;
+}
+button.claudian-work-header:hover {
+  background-color: var(--mp-green-soft) !important;
+  color: var(--text-normal) !important;
+}
+
+/* Claudian 右侧历史会话栏与底部关联文件胶囊：保留舒适内边距，防止文字贴框 */
+.claudian-history-section-toggle,
+button.claudian-history-section-toggle {
+  padding: 4px 8px !important;
+  border: 1px solid transparent !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+.claudian-history-section-toggle:hover {
+  background-color: var(--mp-green-tint) !important;
+  border-color: var(--mp-ink-border) !important;
+}
+
+.claudian-input-info-linked,
+.claudian-input-info-linked > button.claudian-input-info-linked-main {
+  padding: 3px 8px !important;
+  gap: 6px !important;
+  border-radius: 0px !important;
+}
+.claudian-input-info-linked > button.claudian-input-info-linked-main {
+  border: 1px solid var(--mp-ink-border) !important;
+  background-color: var(--background-primary-alt) !important;
+  box-shadow: 2px 2px 0px var(--mp-green-shadow) !important;
+}
+.claudian-input-info-linked > button.claudian-input-info-linked-remove {
+  border: none !important;
+  box-shadow: none !important;
+  padding: 2px 6px !important;
 }
 
 /* AI 回答正文：紧凑高可读性黑粗体排版 */
@@ -781,7 +826,7 @@ body.mp-tab-forest-dark .mod-root .workspace-tab-header.is-active .workspace-tab
   box-shadow: 2px 2px 0px var(--mp-green-deep) !important;
 }
 
-/* 标签 (#tag)：直角黑框 + 淡绿底色 + 等宽字体 */
+/* 标签 (#tag) 与属性多选胶囊：直角黑框 + 淡绿底色 + 饱满内边距与行列呼吸感 */
 a.tag,
 .cm-hashtag,
 .metadata-property-value .multi-select-pill {
@@ -792,9 +837,24 @@ a.tag,
   background-color: var(--mp-green-tint) !important;
   border: 1px solid var(--mp-ink-border) !important;
   border-radius: 0px !important;
-  padding: 1px 6px !important;
+  padding: 3px 9px !important;
+  line-height: 1.35 !important;
   text-decoration: none !important;
   box-shadow: 2px 2px 0px var(--mp-green-shadow) !important;
+}
+.metadata-property-value .multi-select-container {
+  gap: 7px 8px !important;
+  padding: 4px 0 !important;
+}
+.metadata-property-value .multi-select-pill {
+  margin: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+}
+.metadata-property-value .multi-select-pill-remove-button {
+  margin-left: 2px !important;
+  opacity: 0.75 !important;
 }
 .cm-hashtag-begin {
   border-right: none !important;
@@ -965,17 +1025,18 @@ a.tag,
 .markdown-rendered th {
   background-color: var(--background-secondary-alt) !important;
   font-family: var(--font-monospace) !important;
-  font-size: 11.5px !important;
+  font-size: 12px !important;
   font-weight: 700 !important;
   color: var(--text-normal) !important;
   border-bottom: 1.5px solid var(--mp-ink-border) !important;
+  padding: 7px 12px !important;
 }
 
 .bases-td,
 .markdown-rendered td {
   font-size: 12.5px !important;
   border-bottom: 1px solid var(--mp-ink-border-soft) !important;
-  padding: 5px 8px !important;
+  padding: 7px 12px !important;
 }
 
 /* Bases 文件名链接：复刻原图右下角浓绿粗底线样式 */
@@ -1034,34 +1095,106 @@ a.tag,
   box-shadow: inset 3px 0 0 var(--mp-green-deep) !important;
 }
 
-/* 笔记顶部 YAML 属性区 (Properties) */
+/* 笔记顶部 YAML 属性区 (Properties)：清爽印刷登记表结构，消除内部框中框与贴边截断 */
 .metadata-container {
   background-color: var(--background-primary-alt) !important;
   border: 1.5px solid var(--mp-ink-border) !important;
   border-radius: 0px !important;
-  padding: 10px 14px !important;
-  margin: 12px 0 20px 0 !important;
+  padding: 14px 18px !important;
+  margin: 14px 0 22px 0 !important;
   box-shadow: var(--mp-hard-shadow-size) var(--mp-hard-shadow-size) 0px var(--mp-green-shadow) !important;
 }
+
+.metadata-properties-heading {
+  padding: 0 0 8px 0 !important;
+  margin-bottom: 6px !important;
+  border-bottom: 1.5px solid var(--mp-ink-border) !important;
+}
+
+.metadata-property {
+  border-radius: 0px !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(24, 27, 24, 0.14) !important;
+  padding: 4px 6px !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transition: background-color 0.1s ease !important;
+}
+
+.metadata-property:hover {
+  background-color: rgba(194, 219, 200, 0.35) !important;
+}
+
+/* 属性行聚焦态：整行直角淡绿铺底 + 左侧 3px 深松绿竖标，消除原生圆角绿框叠框 */
+.metadata-property:focus-within,
+.metadata-property.is-selected {
+  background-color: var(--mp-green-tint) !important;
+  border-radius: 0px !important;
+  outline: none !important;
+  box-shadow: inset 3px 0 0 var(--mp-green-deep) !important;
+}
+
 .metadata-property-key {
   font-family: var(--font-monospace) !important;
   font-size: 12px !important;
   font-weight: 600 !important;
+  padding: 2px 10px 2px 4px !important;
+  gap: 6px !important;
+  align-items: center !important;
 }
 
-/* 全局按钮与输入框：新粗野主义机械按键回弹反馈 */
-button:not(.clickable-icon):not(.claudian-toolbar-chip),
-.mod-cta,
-input[type='text'],
-input[type='search'],
-textarea,
-.dropdown {
+/* 彻底剥离属性名与属性值内部 input 的多余黑框与阴影，让文字自然舒展 */
+.metadata-container input.metadata-property-key-input,
+.metadata-container .metadata-property-value input[type='text'],
+.metadata-container .metadata-property-value input[type='number'],
+.metadata-container .metadata-property-value input[type='date'],
+.metadata-container .metadata-property-value .metadata-input-longtext {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 3px 6px !important;
+  border-radius: 0px !important;
+}
+
+.metadata-add-button {
+  margin-top: 8px !important;
+  padding: 5px 10px !important;
+  border: 1px dashed var(--mp-ink-border) !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* 全局独立按钮与表单输入框：保证充足的水平与垂直内边距 (5px 12px)，杜绝文字贴框 */
+.setting-item-control button,
+.modal-button-container button,
+button.mod-cta,
+button.mod-warning,
+.view-action.mod-cta {
   border-radius: 0px !important;
   border: 1.5px solid var(--mp-ink-border) !important;
+  padding: 5px 14px !important;
+  height: auto !important;
+  min-height: 30px !important;
   font-family: var(--font-interface) !important;
   font-weight: 600 !important;
   box-shadow: 2px 2px 0px var(--mp-green-shadow) !important;
   transition: transform 0.08s ease, box-shadow 0.08s ease !important;
+}
+
+.setting-item-control input[type='text'],
+.setting-item-control input[type='search'],
+.setting-item-control input[type='number'],
+.search-input-container input,
+.modal input[type='text'],
+.modal textarea,
+.dropdown {
+  border-radius: 0px !important;
+  border: 1.5px solid var(--mp-ink-border) !important;
+  padding: 5px 10px !important;
+  font-family: var(--font-interface) !important;
+  font-weight: 500 !important;
+  box-shadow: 2px 2px 0px var(--mp-green-shadow) !important;
 }
 
 button.mod-cta {
@@ -1069,14 +1202,18 @@ button.mod-cta {
   color: #F4F2EC !important;
 }
 
-button:not(.clickable-icon):hover {
+.setting-item-control button:hover,
+.modal-button-container button:hover,
+button.mod-cta:hover {
   background-color: var(--mp-green-soft) !important;
   color: #101210 !important;
   transform: translate(-1px, -1px) !important;
   box-shadow: 3px 3px 0px var(--mp-green-deep) !important;
 }
 
-button:not(.clickable-icon):active {
+.setting-item-control button:active,
+.modal-button-container button:active,
+button.mod-cta:active {
   transform: translate(1px, 1px) !important;
   box-shadow: 0px 0px 0px transparent !important;
 }
@@ -1172,10 +1309,11 @@ input[type="range"]::-webkit-slider-thumb:active {
   transform: translate(-1px, -1px) !important;
 }
 
-/* 弹窗、命令面板、右键菜单与悬浮预览卡：直角粗黑框 + 硬边亮绿阴影 */
+/* 弹窗、命令面板、自动补全下拉浮窗、右键菜单与悬浮预览卡：直角粗黑框 + 硬边亮绿阴影 + 舒适内边距 */
 .modal,
 .prompt,
 .menu,
+.suggestion-container,
 body .popover.hover-popover {
   background-color: var(--background-primary) !important;
   border: 1.5px solid var(--mp-ink-border) !important;
@@ -1183,9 +1321,21 @@ body .popover.hover-popover {
   box-shadow: 4px 4px 0px var(--mp-green-shadow) !important;
 }
 
+.menu,
+.suggestion-container {
+  padding: 6px !important;
+}
+
+.suggestion {
+  padding: 2px !important;
+}
+
 .suggestion-item,
 .menu-item {
   border-radius: 0px !important;
+  padding: 6px 12px !important;
+  margin-bottom: 2px !important;
+  line-height: 1.4 !important;
 }
 .suggestion-item.is-selected,
 .menu-item:hover,
@@ -1196,7 +1346,12 @@ body .popover.hover-popover {
   box-shadow: inset 3px 0 0 var(--mp-green-deep) !important;
 }
 
-/* 底部状态栏：直角网格顶边 + 等宽数字 */
+.suggestion-container .prompt-instructions {
+  padding: 6px 10px 4px 10px !important;
+  border-top: 1px solid var(--mp-ink-border-soft) !important;
+}
+
+/* 底部状态栏：直角网格顶边 + 等宽数字 + 舒展内边距 */
 .status-bar {
   background-color: var(--status-bar-background) !important;
   border-top: 1px solid var(--mp-ink-border) !important;
@@ -1205,6 +1360,8 @@ body .popover.hover-popover {
   font-family: var(--font-monospace) !important;
   font-size: 11.5px !important;
   font-weight: 500 !important;
+  padding: 4px 12px !important;
+  gap: 10px !important;
 }
 
 /* ==============================================================================
