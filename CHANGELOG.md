@@ -15,7 +15,7 @@ All notable changes to **`chuanban-green`（松绿记事本）** are documented 
 - **Triple Bold Enhancement & Markdown Syntax Stamp Badges（粗体三重强化与 Markdown 语法印章化）**:
   - Fixed Obsidian's default `--font-text-override: "??"` placeholder bypassing `--font-text-theme`.
   - Styled `strong` and `.cm-strong` with `750 ExtraBold` (`vivoSans-Extrabold` / `Sarasa-Mono-Slab-SC-Bold` + `-webkit-text-stroke: 0.2px currentColor`), deep pine-ink text (`#0D2E1D`), sage-green highlight background (`rgba(194, 219, 200, 0.50)`), and a `1.5px` pine-green bottom rule.
-  - Styled `.cm-formatting-*` tokens (`**`, `#`, `-`, `>`, `` ` ``) as bordered pine-green monospace stamps and toned down raw `.cm-url` strings to `0.85em` muted monospace.
+  - Styled `.cm-formatting-quote` (`>`) with a deep pine-green background (`#26593F`) and inverted ivory text (`#F4F2EC`), kept ordinary `.cm-formatting-*` tokens (`**`, `#`, `-`) borderless with a soft sage-green background, merged inline-code backticks (`` ` ``) and code body into a single unbroken `1px` bordered box, and toned down raw `.cm-url` strings to `0.85em` muted monospace.
 - **Showcase Screenshot Update（更新 1.0.4 展示主图与推荐字体下载方案说明）**:
   - Updated primary [`screenshot.png`](screenshot.png) (`166.0 KB`) and added recommended font pairing documentation in [`README.md`](README.md).
 
