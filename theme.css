@@ -1,7 +1,7 @@
 /* ==============================================================================
    chuanban-green (松绿记事本) — Botanical Editorial Neo-Brutalism Theme for Obsidian
    Author: chuanban (https://github.com/Anarcadia)
-   Version: 1.0.3
+   Version: 1.0.4
    License: MIT
    Description: 「松绿记事本」暖调纸媒新粗野主义 (Warm Editorial Neo-Brutalism) 独立主题。
                 复刻「直角高对比 1px 外露黑框网格 + 三阶灰调印刷纸张底色 + 黑粗体排版 +
@@ -53,24 +53,93 @@ settings:
 
 /* ==============================================================================
    1. 字体声明 (@font-face)
+   - 满血档：自动探测并接管用户已安装的 Sarasa Mono Slab SC / vivo Sans / OPPO Sans 4.0 / 思源黑体
+   - 零预装裸机兜底档（无需安装任何第三方字体，开箱即实现双模式中英文字体分离）：
+     * 阅读模式 (.markdown-rendered)：macOS 自动落入「冬青黑体 Hiragino Sans GB (W3/W6 锐利喇叭口印刷黑体)」，
+       Windows 自动落入「微软雅黑 Microsoft YaHei (400/700 现代厚重黑体)」；
+     * 编辑/源码模式 (.markdown-source-view.mod-cm6)：西文/数字/Markdown符号自动落入「SF Mono / Menlo / Cascadia Mono / Consolas」，
+       中文自动落入 macOS「PingFang SC (平头几何黑体) / Heiti SC」与 Windows「DengXian (等线体，修长工程手稿感)」。
    ============================================================================== */
 @font-face {
   font-family: 'Sarasa Mono Slab SC';
-  src: local('Sarasa Mono Slab SC'), local('等距更纱黑体 Slab SC'), local('Sarasa-Mono-Slab-SC-Regular');
-  font-weight: 300 500;
+  src: local('Sarasa-Mono-Slab-SC-Regular'), local('Sarasa Mono Slab SC'), local('等距更纱黑体 Slab SC'),
+       local('Sarasa-Mono-SC-Regular'), local('Sarasa Mono SC'), local('等距更纱黑体 SC');
+  font-weight: 300 550;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Sarasa Mono Slab SC';
-  src: local('Sarasa Mono Slab SC Bold'), local('等距更纱黑体 Slab SC Bold'), local('Sarasa-Mono-Slab-SC-Bold');
-  font-weight: 600 900;
+  src: local('Sarasa-Mono-Slab-SC-Bold'), local('Sarasa Mono Slab SC Bold'), local('等距更纱黑体 Slab SC Bold'),
+       local('Sarasa-Mono-SC-Bold'), local('Sarasa Mono SC Bold'), local('等距更纱黑体 SC Bold');
+  font-weight: 551 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 编辑模式专属中英混排栈：无 Sarasa 时，西文走 SF Mono/Consolas 等宽，中文走苹方(macOS)/等线(Windows) */
+@font-face {
+  font-family: 'MP Editorial Typewriter Fallback';
+  src: local('PingFangSC-Regular'), local('PingFang SC'), local('STHeitiSC-Medium'), local('Heiti SC'),
+       local('DengXian'), local('等线'), local('SimHei');
+  font-weight: 300 550;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'MP Editorial Typewriter Fallback';
+  src: local('PingFangSC-Semibold'), local('PingFangSC-Medium'), local('STHeitiSC-Medium'),
+       local('DengXian-Bold'), local('DengXian Bold'), local('等线 Bold'), local('SimHei');
+  font-weight: 551 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 阅读模式专属现代锐利印刷黑体：优先 vivo Sans / OPPO Sans / 更纱 / 思源；
+   零预装裸机下：macOS 走冬青黑体 (Hiragino Sans GB W3/W6，带锐利印刷喇叭口)，Windows 走微软雅黑 (Microsoft YaHei) */
+@font-face {
+  font-family: 'MP Editorial Gothic';
+  src: local('vivoSans-Regular'), local('vivo Sans'), local('OPPOSans40'), local('OPPO Sans 4.0'),
+       local('Sarasa-Gothic-SC-Regular'), local('Sarasa Gothic SC'),
+       local('Source Han Sans SC Regular'), local('Noto Sans CJK SC Regular'),
+       local('HiraginoSansGB-W3'), local('Hiragino Sans GB'),
+       local('Microsoft YaHei UI'), local('Microsoft YaHei'), local('PingFangSC-Regular');
+  font-weight: 300 450;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'MP Editorial Gothic';
+  src: local('vivoSans-Medium'), local('vivoSans-Demibold'), local('OPPOSans40'), local('OPPO Sans 4.0'),
+       local('Sarasa-Gothic-SC-Regular'), local('Source Han Sans SC Medium'),
+       local('HiraginoSansGB-W3'), local('Microsoft YaHei UI'), local('Microsoft YaHei'), local('PingFangSC-Medium');
+  font-weight: 451 580;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'MP Editorial Gothic';
+  src: local('vivoSans-Extrabold'), local('vivoSans-Bold'),
+       local('Sarasa-Gothic-SC-Bold'), local('Source Han Sans SC Bold'), local('Noto Sans CJK SC Bold'),
+       local('HiraginoSansGB-W6'), local('Hiragino Sans GB W6'),
+       local('Microsoft YaHei UI Bold'), local('Microsoft YaHei Bold'), local('PingFangSC-Semibold');
+  font-weight: 581 780;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'MP Editorial Gothic';
+  src: local('vivoSans-Heavy'), local('vivoSans-Extrabold'),
+       local('Sarasa-Gothic-SC-Bold'), local('Source Han Sans SC Heavy'), local('Noto Sans CJK SC Black'),
+       local('HiraginoSansGB-W6'), local('Hiragino Sans GB W6'),
+       local('Microsoft YaHei UI Bold'), local('Microsoft YaHei Bold'), local('PingFangSC-Semibold');
+  font-weight: 781 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'MP Western Sans';
-  src: local('Inter'), local('SF Pro Text'), local('.AppleSystemUIFont'), local('Helvetica Neue'), local('Arial');
+  src: local('Inter'), local('SF Pro Text'), local('.AppleSystemUIFont'), local('Segoe UI'), local('Helvetica Neue'), local('Arial');
   unicode-range: U+0000-024F, U+0250-02AF, U+1E00-1EFF, U+2000-206F, U+2070-209F, U+20A0-20CF, U+2100-214F;
   font-weight: 300 500;
   font-style: normal;
@@ -78,7 +147,7 @@ settings:
 }
 @font-face {
   font-family: 'MP Western Sans';
-  src: local('Inter Bold'), local('SF Pro Text Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
+  src: local('Inter Bold'), local('SF Pro Text Bold'), local('Segoe UI Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
   unicode-range: U+0000-024F, U+0250-02AF, U+1E00-1EFF, U+2000-206F, U+2070-209F, U+20A0-20CF, U+2100-214F;
   font-weight: 600 900;
   font-style: normal;
@@ -89,20 +158,22 @@ settings:
    2. 全局变量：直角网格、灰调印刷纸色、浓绿/淡绿体系与硬边亮色阴影
    ============================================================================== */
 body {
-  /* 字体体系：黑粗体为主的现代印刷无衬线 + 极客等宽工具字体 */
-  --mp-font-gothic-stack: 'Inter', 'SF Pro Display', 'SF Pro Text', 'Source Han Sans SC', 'Noto Sans CJK SC', 'PingFang SC', 'Hiragino Sans GB', -apple-system, BlinkMacSystemFont, sans-serif;
-  --mp-font-typewriter-stack: 'Sarasa Mono Slab SC', '等距更纱黑体 Slab SC', 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
-  --mp-font-songti-stack: 'MP Western Sans', 'Songti SC', 'Songti TC', 'STSong', 'Source Serif 4', Georgia, serif;
-  --mp-font-mono-stack: 'JetBrains Mono', 'IBM Plex Mono', 'SFMono-Regular', 'Sarasa Mono SC', '等距更纱黑体 SC', Menlo, Monaco, Consolas, ui-monospace, monospace;
+  /* 字体体系：
+     - 阅读模式 (--mp-font-gothic-stack)：现代锐利印刷黑体（裸机 macOS 自动走冬青黑体 Hiragino Sans GB，Windows 走微软雅黑）
+     - 编辑模式 (--mp-font-typewriter-stack)：等距打字机黑体（裸机自动走 SF Mono/Cascadia Mono/Consolas + 苹方/等线） */
+  --mp-font-gothic-stack: 'Inter', 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'MP Editorial Gothic', 'vivo Sans', 'OPPO Sans 4.0', 'Sarasa Gothic SC', 'Source Han Sans SC', 'Noto Sans CJK SC', 'Hiragino Sans GB', 'Microsoft YaHei UI', 'Microsoft YaHei', 'PingFang SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mp-font-typewriter-stack: 'Sarasa Mono Slab SC', '等距更纱黑体 Slab SC', 'Sarasa Mono SC', '等距更纱黑体 SC', 'JetBrains Mono', 'SF Mono', 'SFMono-Regular', 'Cascadia Mono', 'Consolas', 'Menlo', 'MP Editorial Typewriter Fallback', 'PingFang SC', 'DengXian', '等线', ui-monospace, monospace;
+  --mp-font-songti-stack: 'MP Western Sans', 'Songti SC', 'Songti TC', 'STSong', 'SimSun', 'NSimSun', 'Source Serif 4', Georgia, serif;
+  --mp-font-mono-stack: 'Sarasa Mono Slab SC', '等距更纱黑体 Slab SC', 'JetBrains Mono', 'IBM Plex Mono', 'SF Mono', 'SFMono-Regular', 'Cascadia Mono', 'Consolas', 'Sarasa Mono SC', '等距更纱黑体 SC', Menlo, Monaco, 'MP Editorial Typewriter Fallback', ui-monospace, monospace;
 
   --font-interface-theme: var(--mp-font-gothic-stack);
   --font-text-theme: var(--mp-font-gothic-stack);
   --font-monospace-theme: var(--mp-font-mono-stack);
 
   --font-text-size: 17px;
-  --font-interface: var(--font-interface-override, var(--font-interface-theme));
-  --font-text: var(--font-text-override, var(--font-text-theme));
-  --font-monospace: var(--font-monospace-override, var(--font-monospace-theme));
+  --font-interface: var(--mp-font-gothic-stack);
+  --font-text: var(--mp-font-gothic-stack);
+  --font-monospace: var(--mp-font-mono-stack);
 
   /* 顶部导航栏与标签栏全局基准高度锁定（消除原生 40px 与 36px 错位） */
   --header-height: 36px !important;
@@ -189,9 +260,12 @@ body {
   --mp-green-soft: #C2DBC8;                       /* 鼠尾草淡绿：大纲当前章节高亮条、列表选中 */
   --mp-green-tint: #DCEADF;                       /* 极浅薄荷纸底：引用块与代码块浅绿微底 */
 
-  /* 4. 笔墨文字层次（含暗色自适应语义变量） */
+  /* 4. 笔墨文字层次（含暗色自适应语义变量与粗体强化色） */
   --text-normal: #141715;                         /* 铅字浓黑正文 */
-  --mp-text-strong: #0D0F0E;                      /* 标题与粗体浓墨黑 */
+  --mp-text-strong: #0D0F0E;                      /* 标题浓墨黑 */
+  --mp-strong-color: #0D2E1D;                     /* 粗体专属：深墨松浓绿黑 */
+  --mp-strong-bg: rgba(194, 219, 200, 0.50);      /* 粗体专属：温润鼠尾草淡绿微底衬 */
+  --mp-strong-border: rgba(38, 89, 63, 0.42);     /* 粗体专属：底部 1px 松绿细压线 */
   --mp-text-on-soft: #101210;                     /* 淡绿选中条上的高对比深墨字 */
   --text-muted: #525752;                          /* 次要元信息与时间戳 */
   --text-faint: #767B75;                          /* 占位符与弱化符号 */
@@ -294,6 +368,9 @@ body {
 
   --text-normal: #E6E4DC;
   --mp-text-strong: #F4F2EC;
+  --mp-strong-color: #B6E3C6;
+  --mp-strong-bg: rgba(46, 90, 66, 0.48);
+  --mp-strong-border: rgba(120, 171, 136, 0.55);
   --mp-text-on-soft: #F4F2EC;
   --text-muted: #9BA19B;
   --text-faint: #686E68;
@@ -938,23 +1015,33 @@ button.claudian-session-group-toggle:hover {
   background-color: var(--background-primary) !important;
 }
 
-/* 正文基础排版：扎实油墨黑体 (默认 450 Medium 字重模拟印刷铅字) */
-.markdown-rendered,
-.markdown-source-view.mod-cm6 .cm-content,
-.markdown-source-view.mod-cm6 .cm-line {
+/* 正文基础排版（方案 B 模式分离）：
+   - 阅读模式 (.markdown-rendered)：采用现代锐利印刷黑体 (--font-text, 400 Regular)，呈现杂志成品印张质感；
+   - 编辑模式 (.markdown-source-view.mod-cm6，含实时预览与源码模式)：采用等距更纱打字机黑体 (--mp-font-typewriter-stack, 400 Regular)，呈现极客手稿台秩序感。 */
+.markdown-rendered {
   font-family: var(--font-text) !important;
   font-size: var(--font-text-size, 17px) !important;
   line-height: var(--line-height-normal) !important;
   color: var(--text-normal) !important;
-  font-weight: 450 !important;
+  font-weight: 400 !important;
   letter-spacing: 0.005em !important;
+}
+
+.markdown-source-view.mod-cm6 .cm-content,
+.markdown-source-view.mod-cm6 .cm-line {
+  font-family: var(--mp-font-typewriter-stack) !important;
+  font-size: var(--font-text-size, 17px) !important;
+  line-height: var(--line-height-normal) !important;
+  color: var(--text-normal) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.01em !important;
 }
 
 .markdown-rendered p,
 .markdown-rendered li {
   line-height: var(--line-height-normal) !important;
   margin-block: 0 var(--p-spacing, 0.92em) !important;
-  font-weight: 450 !important;
+  font-weight: 400 !important;
 }
 
 .cm-line {
@@ -967,11 +1054,73 @@ button.claudian-session-group-toggle:hover {
   padding-bottom: 0 !important;
 }
 
-/* 粗体字强化 */
+/* 编辑态光标当前行手稿标尺指示（一眼区分编辑手稿态与阅读成品态） */
+.markdown-source-view.mod-cm6 .cm-activeLine {
+  background-color: rgba(194, 219, 200, 0.22) !important;
+  box-shadow: inset 3px 0 0 var(--mp-green-deep) !important;
+}
+.theme-dark .markdown-source-view.mod-cm6 .cm-activeLine {
+  background-color: rgba(46, 90, 66, 0.25) !important;
+  box-shadow: inset 3px 0 0 var(--mp-green-deep) !important;
+}
+
+/* 粗体字三重强化（750 ExtraBold 字重跃迁 + 深墨松绿黑字色 + 鼠尾草微底衬 + 1.5px 松绿细底线） */
 .markdown-rendered strong,
-.cm-strong {
+.claudian-message-content strong,
+.markdown-source-view.mod-cm6 .cm-strong {
   font-weight: 750 !important;
-  color: var(--mp-text-strong) !important;
+  color: var(--mp-strong-color) !important;
+  background-color: var(--mp-strong-bg) !important;
+  border-bottom: 1.5px solid var(--mp-strong-border) !important;
+  padding: 0 3px !important;
+  margin: 0 1px !important;
+  border-radius: 0px !important;
+  -webkit-text-stroke: 0.2px currentColor;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Markdown 语法控制符 (.cm-formatting) 显影化：松石浓绿等宽活字印章块 + 长 URL 地址降噪 */
+.markdown-source-view.mod-cm6 .cm-formatting-strong,
+.markdown-source-view.mod-cm6 .cm-formatting-em,
+.markdown-source-view.mod-cm6 .cm-formatting-strikethrough,
+.markdown-source-view.mod-cm6 .cm-formatting-highlight,
+.markdown-source-view.mod-cm6 .cm-formatting-header,
+.markdown-source-view.mod-cm6 .cm-formatting-list,
+.markdown-source-view.mod-cm6 .cm-formatting-quote,
+.markdown-source-view.mod-cm6 .cm-formatting-code {
+  font-family: var(--font-monospace) !important;
+  font-weight: 700 !important;
+  color: var(--mp-green-deep) !important;
+  background-color: rgba(120, 171, 136, 0.20) !important;
+  border: 1px solid rgba(38, 89, 63, 0.32) !important;
+  border-radius: 0px !important;
+  padding: 0 2px !important;
+  margin: 0 1px !important;
+  -webkit-text-stroke: 0px transparent !important;
+}
+
+.markdown-source-view.mod-cm6 .cm-hr {
+  font-family: var(--font-monospace) !important;
+  font-weight: 700 !important;
+  color: var(--mp-green-deep) !important;
+  background-color: rgba(120, 171, 136, 0.20) !important;
+  padding: 0 4px !important;
+}
+
+.markdown-source-view.mod-cm6 .cm-formatting-link,
+.markdown-source-view.mod-cm6 .cm-formatting-link-string,
+.markdown-source-view.mod-cm6 .cm-url,
+.markdown-source-view.mod-cm6 .cm-string.cm-url {
+  font-family: var(--font-monospace) !important;
+  font-size: 0.85em !important;
+  font-weight: 400 !important;
+  color: var(--text-muted) !important;
+  background-color: transparent !important;
+  border-bottom: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  -webkit-text-stroke: 0px transparent !important;
 }
 
 /* --- 5.1 标题体系：复刻原图极具冲击力的重黑粗体 (Heavy Gothic 750~800) --- */

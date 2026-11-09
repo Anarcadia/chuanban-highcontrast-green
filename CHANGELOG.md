@@ -4,6 +4,23 @@ All notable changes to **`chuanban-green`（松绿记事本）** are documented 
 
 ---
 
+## [1.0.4] - 2026-11-10
+
+### Added & Changed / 新增与优化
+- **Dual-Mode Typography Separation（方案 B：编辑态与阅读态双模式字体职责分离）**:
+  - **Reading Mode (`.markdown-rendered`)**: Uses `400 Regular` modern editorial gothic (`vivo Sans` / `OPPO Sans 4.0` / `Sarasa Gothic SC` / `Source Han Sans SC`) for crisp magazine-grade reading, while headings scale to `750 ExtraBold` / `850 Heavy`.
+  - **Editing & Source Mode (`.markdown-source-view.mod-cm6`)**: Uses monospace typewriter slab (`Sarasa Mono Slab SC`) with a `3px` deep pine-green active-line ruler bar (`.cm-activeLine`), creating an unmistakable visual shift between drafting and reading.
+- **Zero-Install Native OS Dual-CJK Fallback（零预装裸机原厂双黑体自动分流）**:
+  - When third-party fonts (`vivo Sans` / `Sarasa Mono Slab SC`) are not installed, Reading Mode and Editing Mode automatically route to distinct built-in OS font families: on macOS, `Hiragino Sans GB` (冬青黑体 W3/W6) for Reading vs `SF Mono / Menlo + PingFang SC / Heiti SC` for Editing; on Windows, `Microsoft YaHei` (微软雅黑) for Reading vs `Cascadia Mono / Consolas + DengXian` (等线) for Editing.
+- **Triple Bold Enhancement & Markdown Syntax Stamp Badges（粗体三重强化与 Markdown 语法印章化）**:
+  - Fixed Obsidian's default `--font-text-override: "??"` placeholder bypassing `--font-text-theme`.
+  - Styled `strong` and `.cm-strong` with `750 ExtraBold` (`vivoSans-Extrabold` / `Sarasa-Mono-Slab-SC-Bold` + `-webkit-text-stroke: 0.2px currentColor`), deep pine-ink text (`#0D2E1D`), sage-green highlight background (`rgba(194, 219, 200, 0.50)`), and a `1.5px` pine-green bottom rule.
+  - Styled `.cm-formatting-*` tokens (`**`, `#`, `-`, `>`, `` ` ``) as bordered pine-green monospace stamps and toned down raw `.cm-url` strings to `0.85em` muted monospace.
+- **Showcase Screenshot Update（更新 1.0.4 展示主图与推荐字体下载方案说明）**:
+  - Updated primary [`screenshot.png`](screenshot.png) (`166.0 KB`) and added recommended font pairing documentation in [`README.md`](README.md).
+
+---
+
 ## [1.0.3] - 2026-11-08
 
 ### Fixed / 修复

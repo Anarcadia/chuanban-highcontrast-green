@@ -2,7 +2,9 @@
 
 ![chuanban-green Theme Screenshot](screenshot.png)
 
-**`chuanban-green`（松绿记事本）** is a Warm Editorial Neo-Brutalist theme for Obsidian, combining an exposed `1px` high-contrast grid, `0px` sharp corners, a 3-tier warm newsprint paper palette, heavy gothic typography paired with monospace tool zones, and soothing forest/sage green accents with hard-edge offset shadows.
+> 📌 **最新版 1.0.4 版界面示意图，采用「vivo Sans（阅读模式锐利印刷黑体）+ Sarasa Mono Slab SC（更纱黑体等距 Slab · 编辑模式打字机黑体）」推荐下载的字体方案才有效果**（未预装上述字体时，主题会自动回退至 macOS「冬青黑体 Hiragino Sans GB × SF Mono/苹方」或 Windows「微软雅黑 × Consolas/等线」原厂双字体分流方案）。
+
+**`chuanban-green`（松绿记事本）** is a Warm Editorial Neo-Brutalist theme for Obsidian, combining an exposed `1px` high-contrast grid, `0px` sharp corners, a 3-tier warm newsprint paper palette, dual-mode typography separation (editorial gothic for reading + typewriter slab mono for editing), triple-enhanced bold highlights, and soothing forest/sage green accents with hard-edge offset shadows.
 
 ---
 
@@ -15,7 +17,18 @@
 | **三阶印刷纸底 (`Warm Newsprint`)** | `#ECEAE2` / `#E2DFD5` / `#D6D2C6` | 中央道林浅灰纸 → 侧栏旧报刊中暖灰 → 右上大纲亚麻深暖灰，自然拉开分区景深 |
 | **浓绿与淡绿双层强调色** | 竹青 `#78AB88` / 深松 `#26593F` | 顶部激活 Tab 采用竹青浓绿实心块 + 炭黑粗体字；文内双链采用 `2px` 深松浓绿粗实线底边 |
 | **粗犷亮绿硬边阴影 (`Hard Shadow`)** | `3px 3px 0px #A3C9AE` | 零模糊纯色硬边偏移阴影，应用于 Claudian 提问盒、引用块、Callout、代码块、属性框与按钮 |
-| **黑粗体 + 极客等宽混排** | 黑粗体 (`450`/`750~800`) + 等宽 (`Mono`) | 正文与标题采用高对比现代黑粗体；Claudian 状态行、Prompt 框、时间戳与表格数字采用等宽字体 |
+| **双模式字体分离 + 粗体三重强化** | 阅读态黑体 (`400`/`750`) ⇄ 编辑态等距打字机体 | 阅读模式采用现代锐利印刷黑体，编辑/源码模式采用等距打字机黑体 + 松石绿语法活字印章块；粗体叠加 `750 ExtraBold`、深墨松绿字色、鼠尾草微底衬与 `1.5px` 松绿细压线 |
+
+### 🖋️ 推荐下载的字体方案 (Recommended Font Pairing)
+
+为了获得与上方 `v1.0.4` 界面示意图 100% 一致的满血双模式排版体验，推荐在系统中下载安装以下两套免费字体（**安装后无需在 Obsidian 外观中手动设置，主题内置 `@font-face` 探针会自动识别并接管**）：
+
+1. **阅读模式（`.markdown-rendered`）推荐下载字体**：**`vivo Sans`**（或 **`OPPO Sans 4.0`** / **`思源黑体 Source Han Sans SC`**）
+   - 正文自动调用 `400 Regular`，粗体直通 `750 ExtraBold`，标题直通 `850 Heavy`，呈现刀锋般锐利的现代杂志印张质感。
+2. **编辑/源码模式（`.markdown-source-view.mod-cm6`）推荐下载字体**：**[`Sarasa Mono Slab SC`（更纱黑体等距 Slab SC）](https://github.com/be5invis/Sarasa-Gothic)**
+   - 实现中英文严格 `2:1` 等距对齐的打字机手稿台体验，搭配 `**` / `#` / `-` 松石绿语法活字小印章与当前行左侧 `3px` 深松绿标尺。
+3. **零预装裸机自动分流兜底**：
+   - 若未安装上述字体，macOS 会自动分流为 **「冬青黑体 `Hiragino Sans GB`（阅读态喇叭口印刷黑体）⇄ `SF Mono` + `PingFang SC`（编辑态平头几何黑体）」**；Windows 会自动分流为 **「`Microsoft YaHei` 微软雅黑（阅读态）⇄ `Cascadia Mono / Consolas` + `DengXian` 等线（编辑态）」**，开箱即享双模式区分。
 
 ### 📐 界面细节图解 (Visual Design Breakdown)
 
@@ -39,6 +52,11 @@
 
 See [CHANGELOG.md](CHANGELOG.md) for full details.
 
+- **`v1.0.4` (2026-11-10)** — **Dual-Mode Typography Separation, Triple Bold Enhancement & Showcase Update (双模式字体职责分离、粗体三重强化、语法印章化与 1.0.4 展示主图更新)**:
+  - **Dual-Mode Typography Separation (方案 B 模式职责分离)**: Reading Mode (`.markdown-rendered`) uses sharp editorial gothic (`vivo Sans` / `OPPO Sans 4.0` / `Sarasa Gothic SC` / `Source Han Sans SC`), while Editing & Source Mode (`.markdown-source-view.mod-cm6`) uses monospace typewriter slab (`Sarasa Mono Slab SC`) with a `3px` pine-green active-line ruler bar.
+  - **Zero-Install Native OS Dual-CJK Fallback**: Added automatic dual-font separation for bare systems without third-party fonts (`Hiragino Sans GB` vs `SF Mono + PingFang SC` on macOS; `Microsoft YaHei` vs `Cascadia Mono/Consolas + DengXian` on Windows).
+  - **Triple Bold Enhancement & Syntax Badges**: Bypassed Obsidian's `--font-text-override: "??"` fallback trap; enhanced `strong` / `.cm-strong` with `750 ExtraBold` (`vivoSans-Extrabold` + `-webkit-text-stroke: 0.2px`), deep pine-ink color (`#0D2E1D`), sage-green highlight pad (`rgba(194, 219, 200, 0.50)`), and `1.5px` bottom rule; styled `.cm-formatting` tokens as pine-green monospace stamps and muted raw `.cm-url` strings to `0.85em`.
+  - **Updated Showcase Screenshot**: Updated primary `screenshot.png` to showcase the `v1.0.4` typography system.
 - **`v1.0.3` (2026-11-08)** — **Windows / Linux / macOS Hidden Frameless Titlebar Compatibility Fix (Windows/Linux 隐藏标题栏模式顶栏遮挡与窗口按钮预留区修复)**:
   - Fixed `.titlebar` forcing an opaque background in `body.is-hidden-frameless` mode on Windows/Linux, which previously covered the top-left and top-right sidebar icons and tab bar.
   - Replaced hardcoded horizontal `padding: 0 !important` / `padding: 0 8px !important` on `.workspace-tab-header-container` with explicit `--frame-left-space` and `--frame-right-space` rules (`calc(8px + var(--frame-right-space, 0px))`), preventing top-right icons from colliding with Windows `- □ ×` window buttons or macOS traffic lights.
