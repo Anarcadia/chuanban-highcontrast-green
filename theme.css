@@ -1072,31 +1072,45 @@ button.claudian-session-group-toggle:hover {
   color: var(--mp-strong-color) !important;
   background-color: var(--mp-strong-bg) !important;
   border-bottom: 1.5px solid var(--mp-strong-border) !important;
-  padding: 0 3px !important;
-  margin: 0 1px !important;
+  padding: 0 2px !important;
+  margin: 0 !important;
   border-radius: 0px !important;
   -webkit-text-stroke: 0.2px currentColor;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
 
-/* Markdown 语法控制符 (.cm-formatting) 显影化：松石浓绿等宽活字印章块 + 长 URL 地址降噪 */
+/* 普通 Markdown 语法控制符 (.cm-formatting)：不加方块边框，仅保留柔和淡绿背景色与深松绿字色 */
 .markdown-source-view.mod-cm6 .cm-formatting-strong,
 .markdown-source-view.mod-cm6 .cm-formatting-em,
 .markdown-source-view.mod-cm6 .cm-formatting-strikethrough,
 .markdown-source-view.mod-cm6 .cm-formatting-highlight,
 .markdown-source-view.mod-cm6 .cm-formatting-header,
-.markdown-source-view.mod-cm6 .cm-formatting-list,
-.markdown-source-view.mod-cm6 .cm-formatting-quote,
-.markdown-source-view.mod-cm6 .cm-formatting-code {
+.markdown-source-view.mod-cm6 .cm-formatting-list {
   font-family: var(--font-monospace) !important;
   font-weight: 700 !important;
   color: var(--mp-green-deep) !important;
-  background-color: rgba(120, 171, 136, 0.20) !important;
-  border: 1px solid rgba(38, 89, 63, 0.32) !important;
+  background-color: rgba(120, 171, 136, 0.22) !important;
+  border: none !important;
   border-radius: 0px !important;
   padding: 0 2px !important;
-  margin: 0 1px !important;
+  margin: 0 !important;
+  -webkit-text-stroke: 0px transparent !important;
+}
+
+/* 编辑模式下引用符号 > (.cm-formatting-quote)：深松浓绿背景 + 象牙白反色符号（无边框，与普通标记鲜明区分） */
+.markdown-source-view.mod-cm6 .cm-formatting-quote,
+.markdown-source-view.mod-cm6 .HyperMD-quote .cm-formatting-quote,
+.markdown-source-view.mod-cm6 span.cm-formatting-quote,
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote span.cm-formatting-quote.cm-quote {
+  font-family: var(--font-monospace) !important;
+  font-weight: 700 !important;
+  background-color: #26593F !important;
+  color: #F4F2EC !important;
+  border: none !important;
+  border-radius: 0px !important;
+  padding: 0 4px !important;
+  margin: 0 3px 0 0 !important;
   -webkit-text-stroke: 0px transparent !important;
 }
 
@@ -1304,11 +1318,7 @@ a.tag,
   border-inline-start: 4px solid var(--mp-green-deep) !important;
   inset-inline-start: 0 !important;
 }
-.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote .cm-formatting-quote,
-.markdown-source-view.mod-cm6.is-live-preview span.cm-formatting-quote {
-  display: none !important;
-}
-.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote span.cm-quote {
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote span.cm-quote:not(.cm-formatting):not(.cm-strong):not(.cm-inline-code) {
   color: var(--text-normal) !important;
   font-style: normal !important;
 }
@@ -1364,6 +1374,36 @@ a.tag,
   border: 1px solid var(--mp-ink-border) !important;
   border-radius: 0px !important;
   padding: 1px 5px !important;
+  margin: 0 !important;
+}
+
+/* 编辑/源码模式下：将行内代码前后的反引号 (`) 与代码正文无缝拼合为同一个完整方框，消除内部割裂竖线 */
+.markdown-source-view.mod-cm6 .cm-line:not(.HyperMD-codeblock) .cm-formatting-code.cm-inline-code {
+  border-top: 1px solid var(--mp-ink-border) !important;
+  border-bottom: 1px solid var(--mp-ink-border) !important;
+  border-left: 1px solid var(--mp-ink-border) !important;
+  border-right: none !important;
+  padding: 1px 0 1px 4px !important;
+  margin: 0 !important;
+  color: var(--mp-green-deep) !important;
+  background-color: var(--mp-green-tint) !important;
+}
+.markdown-source-view.mod-cm6 .cm-line:not(.HyperMD-codeblock) .cm-formatting-code.cm-inline-code ~ .cm-inline-code:not(.cm-formatting-code):has(+ .cm-inline-code),
+.markdown-source-view.mod-cm6 .cm-line:not(.HyperMD-codeblock) .cm-formatting-code.cm-inline-code + .cm-inline-code:not(.cm-formatting-code) {
+  border-top: 1px solid var(--mp-ink-border) !important;
+  border-bottom: 1px solid var(--mp-ink-border) !important;
+  border-left: none !important;
+  border-right: none !important;
+  padding: 1px 0 !important;
+  margin: 0 !important;
+}
+.markdown-source-view.mod-cm6 .cm-line:not(.HyperMD-codeblock) .cm-inline-code:not(.cm-formatting-code) + .cm-formatting-code.cm-inline-code {
+  border-top: 1px solid var(--mp-ink-border) !important;
+  border-bottom: 1px solid var(--mp-ink-border) !important;
+  border-left: none !important;
+  border-right: 1px solid var(--mp-ink-border) !important;
+  padding: 1px 4px 1px 0 !important;
+  margin: 0 !important;
 }
 
 .markdown-rendered pre,
