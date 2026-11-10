@@ -2,7 +2,7 @@
 
 ![chuanban-green Theme Screenshot](screenshot.png)
 
-> 📌 **最新版 1.0.4 版界面示意图，采用「vivo Sans（阅读模式锐利印刷黑体）+ Sarasa Mono Slab SC（更纱黑体等距 Slab · 编辑模式打字机黑体）」推荐下载的字体方案才有效果**（未预装上述字体时，主题会自动回退至 macOS「冬青黑体 Hiragino Sans GB × SF Mono/苹方」或 Windows「Segoe UI/微软雅黑 × Consolas/思源黑体/微软雅黑」原厂清晰黑体方案，并完整支持通过 Obsidian 原生「设置 → 外观 → 字体」菜单自定义切换）。
+> 📌 **最新版 1.0.5 版界面示意图，采用「vivo Sans（阅读模式锐利印刷黑体）+ Sarasa Mono Slab SC（更纱黑体等距 Slab · 编辑模式打字机黑体）」推荐下载的字体方案才有效果**（未预装上述字体时，主题会自动回退至 macOS「冬青黑体 Hiragino Sans GB × SF Mono/苹方」或 Windows「Segoe UI/微软雅黑 × Consolas/思源黑体/微软雅黑」原厂清晰黑体方案，并完整支持通过 Obsidian 原生「设置 → 外观 → 字体」菜单自定义切换）。
 
 **`chuanban-green`（松绿记事本）** is a Warm Editorial Neo-Brutalist theme for Obsidian, combining an exposed `1px` high-contrast grid, `0px` sharp corners, a 3-tier warm newsprint paper palette, dual-mode typography separation (editorial gothic for reading + typewriter slab mono for editing), triple-enhanced bold highlights, and soothing forest/sage green accents with hard-edge offset shadows.
 
@@ -52,6 +52,9 @@
 
 See [CHANGELOG.md](CHANGELOG.md) for full details.
 
+- **`v1.0.5` (2026-11-10)** — **Windows Editing Mode Crisp CJK Fallback & Native Font Picker Integration (修复 Windows 编辑模式默认回退至「等线」笔画过细发虚问题，并全面打通 Obsidian 原生字体选择菜单)**:
+  - **Windows Editing Mode Crisp CJK Fallback**: Replaced thin `DengXian` (等线) fallback in `@font-face 'MP Editorial Typewriter Fallback'`, `--mp-font-typewriter-stack`, and `--mp-font-mono-stack` with `Source Han Sans SC` / `Noto Sans CJK SC` and `Microsoft YaHei UI` / `Microsoft YaHei` (微软雅黑), ensuring crisp, solid Chinese strokes (`400 Regular`) in Editing Mode while preserving clear contrast against `750 ExtraBold` highlights.
+  - **Obsidian Native Appearance Font Picker Support**: Connected `var(--font-text-override)`, `var(--font-interface-override)`, and `var(--font-monospace-override)` across `--font-text`, `.markdown-source-view.mod-cm6 .cm-content`, and all typography preset classes so custom fonts selected in Obsidian's built-in `Settings → Appearance → Font` menu take effect immediately in both Reading and Editing modes.
 - **`v1.0.4` (2026-11-10)** — **Dual-Mode Typography Separation, Triple Bold Enhancement & Showcase Update (双模式字体职责分离、粗体三重强化、语法印章化与 1.0.4 展示主图更新)**:
   - **Dual-Mode Typography Separation (方案 B 模式职责分离)**: Reading Mode (`.markdown-rendered`) uses sharp editorial gothic (`vivo Sans` / `OPPO Sans 4.0` / `Sarasa Gothic SC` / `Source Han Sans SC`), while Editing & Source Mode (`.markdown-source-view.mod-cm6`) uses monospace typewriter slab (`Sarasa Mono Slab SC`) with a `3px` pine-green active-line ruler bar.
   - **Zero-Install Native OS CJK Fallback & Native Font Picker Support**: Added automatic crisp fallback for bare systems without third-party fonts (`Hiragino Sans GB` vs `SF Mono + PingFang SC` on macOS; `Microsoft YaHei` vs `Cascadia Mono/Consolas + Source Han Sans SC / Microsoft YaHei` on Windows, eliminating thin `DengXian` rendering), and connected `--font-text-override` so Obsidian's built-in Appearance Font Picker works seamlessly across both Reading and Editing modes.
