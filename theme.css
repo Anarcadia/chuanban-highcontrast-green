@@ -58,7 +58,7 @@ settings:
      * 阅读模式 (.markdown-rendered)：macOS 自动落入「冬青黑体 Hiragino Sans GB (W3/W6 锐利喇叭口印刷黑体)」，
        Windows 自动落入「微软雅黑 Microsoft YaHei (400/700 现代厚重黑体)」；
      * 编辑/源码模式 (.markdown-source-view.mod-cm6)：西文/数字/Markdown符号自动落入「SF Mono / Menlo / Cascadia Mono / Consolas」，
-       中文自动落入 macOS「PingFang SC (平头几何黑体) / Heiti SC」与 Windows「DengXian (等线体，修长工程手稿感)」。
+       中文自动落入「思源黑体 Source Han Sans SC」、macOS「PingFang SC (平头几何黑体) / Heiti SC」与 Windows「Microsoft YaHei (微软雅黑，锐利扎实不发虚)」。
    ============================================================================== */
 @font-face {
   font-family: 'Sarasa Mono Slab SC';
@@ -77,19 +77,21 @@ settings:
   font-display: swap;
 }
 
-/* 编辑模式专属中英混排栈：无 Sarasa 时，西文走 SF Mono/Consolas 等宽，中文走苹方(macOS)/等线(Windows) */
+/* 编辑模式专属中英混排栈：无 Sarasa 时，西文走 SF Mono/Consolas 等宽，中文走思源黑体 / 苹方(macOS) / 微软雅黑(Windows) */
 @font-face {
   font-family: 'MP Editorial Typewriter Fallback';
-  src: local('PingFangSC-Regular'), local('PingFang SC'), local('STHeitiSC-Medium'), local('Heiti SC'),
-       local('DengXian'), local('等线'), local('SimHei');
+  src: local('Source Han Sans SC Regular'), local('Noto Sans CJK SC Regular'),
+       local('PingFangSC-Regular'), local('PingFang SC'), local('STHeitiSC-Medium'), local('Heiti SC'),
+       local('Microsoft YaHei UI'), local('Microsoft YaHei'), local('SimHei');
   font-weight: 300 550;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'MP Editorial Typewriter Fallback';
-  src: local('PingFangSC-Semibold'), local('PingFangSC-Medium'), local('STHeitiSC-Medium'),
-       local('DengXian-Bold'), local('DengXian Bold'), local('等线 Bold'), local('SimHei');
+  src: local('Source Han Sans SC Bold'), local('Noto Sans CJK SC Bold'),
+       local('PingFangSC-Semibold'), local('PingFangSC-Medium'), local('STHeitiSC-Medium'),
+       local('Microsoft YaHei UI Bold'), local('Microsoft YaHei Bold'), local('SimHei');
   font-weight: 551 900;
   font-style: normal;
   font-display: swap;
@@ -160,20 +162,21 @@ settings:
 body {
   /* 字体体系：
      - 阅读模式 (--mp-font-gothic-stack)：现代锐利印刷黑体（裸机 macOS 自动走冬青黑体 Hiragino Sans GB，Windows 走微软雅黑）
-     - 编辑模式 (--mp-font-typewriter-stack)：等距打字机黑体（裸机自动走 SF Mono/Cascadia Mono/Consolas + 苹方/等线） */
+     - 编辑模式 (--mp-font-typewriter-stack)：等距打字机黑体（裸机自动走 SF Mono/Cascadia Mono/Consolas + 思源黑体/苹方/微软雅黑）
+     - 完美接入 Obsidian 原生「设置 → 外观 → 字体」覆盖钩子 (--font-*-override) */
   --mp-font-gothic-stack: 'Inter', 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'MP Editorial Gothic', 'vivo Sans', 'OPPO Sans 4.0', 'Sarasa Gothic SC', 'Source Han Sans SC', 'Noto Sans CJK SC', 'Hiragino Sans GB', 'Microsoft YaHei UI', 'Microsoft YaHei', 'PingFang SC', -apple-system, BlinkMacSystemFont, sans-serif;
-  --mp-font-typewriter-stack: 'Sarasa Mono Slab SC', '等距更纱黑体 Slab SC', 'Sarasa Mono SC', '等距更纱黑体 SC', 'JetBrains Mono', 'SF Mono', 'SFMono-Regular', 'Cascadia Mono', 'Consolas', 'Menlo', 'MP Editorial Typewriter Fallback', 'PingFang SC', 'DengXian', '等线', ui-monospace, monospace;
+  --mp-font-typewriter-stack: 'Sarasa Mono Slab SC', '等距更纱黑体 Slab SC', 'Sarasa Mono SC', '等距更纱黑体 SC', 'JetBrains Mono', 'SF Mono', 'SFMono-Regular', 'Cascadia Mono', 'Consolas', 'Menlo', 'MP Editorial Typewriter Fallback', 'Source Han Sans SC', 'Noto Sans CJK SC', 'PingFang SC', 'Microsoft YaHei UI', 'Microsoft YaHei', ui-monospace, monospace;
   --mp-font-songti-stack: 'MP Western Sans', 'Songti SC', 'Songti TC', 'STSong', 'SimSun', 'NSimSun', 'Source Serif 4', Georgia, serif;
-  --mp-font-mono-stack: 'Sarasa Mono Slab SC', '等距更纱黑体 Slab SC', 'JetBrains Mono', 'IBM Plex Mono', 'SF Mono', 'SFMono-Regular', 'Cascadia Mono', 'Consolas', 'Sarasa Mono SC', '等距更纱黑体 SC', Menlo, Monaco, 'MP Editorial Typewriter Fallback', ui-monospace, monospace;
+  --mp-font-mono-stack: 'Sarasa Mono Slab SC', '等距更纱黑体 Slab SC', 'JetBrains Mono', 'IBM Plex Mono', 'SF Mono', 'SFMono-Regular', 'Cascadia Mono', 'Consolas', 'Sarasa Mono SC', '等距更纱黑体 SC', Menlo, Monaco, 'MP Editorial Typewriter Fallback', 'Source Han Sans SC', 'Noto Sans CJK SC', 'PingFang SC', 'Microsoft YaHei UI', 'Microsoft YaHei', ui-monospace, monospace;
 
   --font-interface-theme: var(--mp-font-gothic-stack);
   --font-text-theme: var(--mp-font-gothic-stack);
   --font-monospace-theme: var(--mp-font-mono-stack);
 
   --font-text-size: 17px;
-  --font-interface: var(--mp-font-gothic-stack);
-  --font-text: var(--mp-font-gothic-stack);
-  --font-monospace: var(--mp-font-mono-stack);
+  --font-interface: var(--font-interface-override), var(--font-interface-theme);
+  --font-text: var(--font-text-override), var(--font-text-theme);
+  --font-monospace: var(--font-monospace-override), var(--font-monospace-theme);
 
   /* 顶部导航栏与标签栏全局基准高度锁定（消除原生 40px 与 36px 错位） */
   --header-height: 36px !important;
@@ -1029,7 +1032,7 @@ button.claudian-session-group-toggle:hover {
 
 .markdown-source-view.mod-cm6 .cm-content,
 .markdown-source-view.mod-cm6 .cm-line {
-  font-family: var(--mp-font-typewriter-stack) !important;
+  font-family: var(--font-text-override), var(--mp-font-typewriter-stack) !important;
   font-size: var(--font-text-size, 17px) !important;
   line-height: var(--line-height-normal) !important;
   color: var(--text-normal) !important;
@@ -1976,7 +1979,7 @@ body.mp-font-typewriter,
 body.preset-notion-serif,
 .preset-notion-serif {
   --font-text-theme: var(--mp-font-typewriter-stack);
-  --font-text: var(--mp-font-typewriter-stack);
+  --font-text: var(--font-text-override), var(--mp-font-typewriter-stack);
 }
 body.mp-font-typewriter .markdown-rendered,
 body.mp-font-typewriter .markdown-source-view.mod-cm6 .cm-content,
@@ -1984,14 +1987,14 @@ body.mp-font-typewriter .markdown-source-view.mod-cm6 .cm-line,
 body.preset-notion-serif .markdown-rendered,
 body.preset-notion-serif .markdown-source-view.mod-cm6 .cm-content,
 body.preset-notion-serif .markdown-source-view.mod-cm6 .cm-line {
-  font-family: var(--mp-font-typewriter-stack) !important;
+  font-family: var(--font-text-override), var(--mp-font-typewriter-stack) !important;
 }
 
 body.mp-font-songti,
 body.preset-songti-serif,
 .preset-songti-serif {
   --font-text-theme: var(--mp-font-songti-stack);
-  --font-text: var(--mp-font-songti-stack);
+  --font-text: var(--font-text-override), var(--mp-font-songti-stack);
   --line-height-normal: 1.68;
 }
 body.mp-font-songti .markdown-rendered,
@@ -2000,7 +2003,7 @@ body.mp-font-songti .markdown-source-view.mod-cm6 .cm-line,
 body.preset-songti-serif .markdown-rendered,
 body.preset-songti-serif .markdown-source-view.mod-cm6 .cm-content,
 body.preset-songti-serif .markdown-source-view.mod-cm6 .cm-line {
-  font-family: var(--mp-font-songti-stack) !important;
+  font-family: var(--font-text-override), var(--mp-font-songti-stack) !important;
 }
 
 /* 悬浮预览卡 (Hover Popover)：完整微缩比例排版，避免预览卡内大标题与内边距撑满窗口 */
