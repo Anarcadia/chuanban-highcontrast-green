@@ -1407,20 +1407,47 @@ a.tag,
 }
 
 .markdown-rendered pre,
-.claudian-message-content pre,
-.markdown-source-view.mod-cm6 div.HyperMD-codeblock-bg {
+.claudian-message-content pre {
   background-color: var(--code-background) !important;
   border: 1.5px solid var(--mp-ink-border) !important;
   border-radius: 0px !important;
+  padding: 12px 16px !important;
   box-shadow: var(--mp-hard-shadow-size) var(--mp-hard-shadow-size) 0px var(--mp-green-shadow) !important;
 }
-.markdown-rendered pre,
-.claudian-message-content pre {
-  padding: 12px 16px !important;
+
+/* 编辑/源码模式多行代码块：消除每行独立的上下黑框，将首行、中间行、末行合并为一个连续完整的直角框体 + 右下硬边阴影 */
+.markdown-source-view.mod-cm6 div.HyperMD-codeblock-bg {
+  background-color: var(--code-background) !important;
+  border-left: 1.5px solid var(--mp-ink-border) !important;
+  border-right: 1.5px solid var(--mp-ink-border) !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border-radius: 0px !important;
+  box-shadow: var(--mp-hard-shadow-size) 0px 0px var(--mp-green-shadow) !important;
+}
+.markdown-source-view.mod-cm6 div.HyperMD-codeblock-begin-bg,
+.markdown-source-view.mod-cm6 div.HyperMD-codeblock-bg.HyperMD-codeblock-begin {
+  border-top: 1.5px solid var(--mp-ink-border) !important;
+  padding-top: 6px !important;
+  box-shadow: var(--mp-hard-shadow-size) var(--mp-hard-shadow-size) 0px var(--mp-green-shadow) !important;
+}
+.markdown-source-view.mod-cm6 div.HyperMD-codeblock-end-bg,
+.markdown-source-view.mod-cm6 div.HyperMD-codeblock-bg.HyperMD-codeblock-end {
+  border-bottom: 1.5px solid var(--mp-ink-border) !important;
+  padding-bottom: 6px !important;
+  box-shadow: var(--mp-hard-shadow-size) 0px 0px var(--mp-green-shadow), var(--mp-hard-shadow-size) var(--mp-hard-shadow-size) 0px var(--mp-green-shadow) !important;
 }
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock {
   padding-left: 16px !important;
   padding-right: 16px !important;
+  line-height: 1.45 !important;
+}
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock.cm-activeLine {
+  background-color: rgba(194, 219, 200, 0.30) !important;
+  box-shadow: inset 3px 0 0 var(--mp-green-deep), var(--mp-hard-shadow-size) 0px 0px var(--mp-green-shadow) !important;
+}
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock.HyperMD-codeblock-end.cm-activeLine {
+  box-shadow: inset 3px 0 0 var(--mp-green-deep), var(--mp-hard-shadow-size) 0px 0px var(--mp-green-shadow), var(--mp-hard-shadow-size) var(--mp-hard-shadow-size) 0px var(--mp-green-shadow) !important;
 }
 
 /* ==============================================================================
