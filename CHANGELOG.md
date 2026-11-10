@@ -4,6 +4,16 @@ All notable changes to **`chuanban-green`（松绿记事本）** are documented 
 
 ---
 
+## [1.0.5] - 2026-11-10
+
+### Fixed / 修复
+- **Windows Editing Mode Crisp CJK Fallback（修复 Windows 编辑模式默认回退至「等线」导致笔画过细发虚的问题）**:
+  - Replaced thin `DengXian` (等线) fallback in `@font-face 'MP Editorial Typewriter Fallback'`, `--mp-font-typewriter-stack`, and `--mp-font-mono-stack` with `Source Han Sans SC` / `Noto Sans CJK SC` and `Microsoft YaHei UI` / `Microsoft YaHei` (微软雅黑), ensuring crisp, solid CJK strokes in Editing Mode while preserving clear contrast against `750 ExtraBold` highlights.
+- **Obsidian Native Appearance Font Picker Integration（全面打通 Obsidian 原生「设置 → 外观 → 字体」自定义选择菜单）**:
+  - Connected `var(--font-text-override)`, `var(--font-interface-override)`, and `var(--font-monospace-override)` across `--font-text`, `.markdown-source-view.mod-cm6 .cm-content`, and all typography preset classes so custom fonts selected in Obsidian's built-in Appearance menu take effect immediately in both Reading and Editing modes.
+
+---
+
 ## [1.0.4] - 2026-11-10
 
 ### Added & Changed / 新增与优化
